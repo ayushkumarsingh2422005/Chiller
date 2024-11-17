@@ -21,7 +21,7 @@ export default function TopBar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar>
                     {/* Left Icon to Toggle Drawer */}
                     <IconButton

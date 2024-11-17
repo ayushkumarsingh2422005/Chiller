@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Landing } from './pages';
+import './app.css'
 if (process.env.NODE_ENV === 'development') {
   const noop = () => {};
   console.warn = noop; // This will suppress all warnings

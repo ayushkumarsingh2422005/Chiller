@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/monkey.png';
 import GoogleIcon from '@mui/icons-material/Google';
 import { GoogleLogin } from '@react-oauth/google';
+import TopBar from '../components/TopBar';
 
 const UserAuthPage = () => {
     const [activeTab, setActiveTab] = useState(0); // 0: Register, 1: Login
@@ -118,176 +119,179 @@ const UserAuthPage = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-12 mb-12">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
-                {/* Logo */}
-                <div className="text-center md:text-left md:w-1/3">
-                    <img src={logo} alt="Logo" className="w-auto mx-auto md:mx-0" />
-                </div>
+        <>
+            <TopBar />
+            <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-20 mb-12">
+                <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+                    {/* Logo */}
+                    <div className="text-center md:text-left md:w-1/3">
+                        <img src={logo} alt="Logo" className="w-auto mx-auto md:mx-0" />
+                    </div>
 
-                {/* Form */}
-                <div className="w-full md:w-2/3">
-                    <Paper className="mb-4">
-                        <Tabs value={activeTab} onChange={handleTabChange} centered>
-                            <Tab label="Register" />
-                            <Tab label="Login" />
-                        </Tabs>
-                    </Paper>
+                    {/* Form */}
+                    <div className="w-full md:w-2/3">
+                        <Paper className="mb-4">
+                            <Tabs value={activeTab} onChange={handleTabChange} centered>
+                                <Tab label="Register" />
+                                <Tab label="Login" />
+                            </Tabs>
+                        </Paper>
 
-                    <form onSubmit={handleFormSubmit} className="space-y-4">
-                        {activeTab === 0 && (
-                            <div className="space-y-4">
-                                <TextField
-                                    label="Name"
-                                    name="name"
-                                    value={userDetails.name}
-                                    onChange={handleInputChange}
-                                    fullWidth
-                                    required
-                                />
-                                <TextField
-                                    label="Email"
-                                    name="email"
-                                    value={userDetails.email}
-                                    onChange={handleInputChange}
-                                    fullWidth
-                                    required
-                                />
-                                <TextField
-                                    label="Password"
-                                    name="password"
-                                    type={passwordVisible ? 'text' : 'password'}
-                                    value={userDetails.password}
-                                    onChange={handleInputChange}
-                                    fullWidth
-                                    required
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton onClick={togglePasswordVisibility}>
-                                                    {passwordVisible ? <Visibility /> : <VisibilityOff />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                                <FormControl component="fieldset">
-                                    <RadioGroup
-                                        row
-                                        name="gender"
-                                        value={userDetails.gender}
+                        <form onSubmit={handleFormSubmit} className="space-y-4">
+                            {activeTab === 0 && (
+                                <div className="space-y-4">
+                                    <TextField
+                                        label="Name"
+                                        name="name"
+                                        value={userDetails.name}
                                         onChange={handleInputChange}
+                                        fullWidth
+                                        required
+                                    />
+                                    <TextField
+                                        label="Email"
+                                        name="email"
+                                        value={userDetails.email}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        required
+                                    />
+                                    <TextField
+                                        label="Password"
+                                        name="password"
+                                        type={passwordVisible ? 'text' : 'password'}
+                                        value={userDetails.password}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        required
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={togglePasswordVisibility}>
+                                                        {passwordVisible ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                    <FormControl component="fieldset">
+                                        <RadioGroup
+                                            row
+                                            name="gender"
+                                            value={userDetails.gender}
+                                            onChange={handleInputChange}
+                                        >
+                                            <FormControlLabel value="Male" control={<Radio />} label="Male" />
+                                            <FormControlLabel value="Female" control={<Radio />} label="Female" />
+                                            <FormControlLabel
+                                                value="Prefer Not to Choose"
+                                                control={<Radio />}
+                                                label="Prefer Not to Choose"
+                                            />
+                                        </RadioGroup>
+                                    </FormControl>
+
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        type="submit"
+                                        fullWidth
+                                        disabled={loading}
                                     >
-                                        <FormControlLabel value="Male" control={<Radio />} label="Male" />
-                                        <FormControlLabel value="Female" control={<Radio />} label="Female" />
-                                        <FormControlLabel
-                                            value="Prefer Not to Choose"
-                                            control={<Radio />}
-                                            label="Prefer Not to Choose"
-                                        />
-                                    </RadioGroup>
-                                </FormControl>
+                                        {loading ? <CircularProgress size={24} /> : 'Register'}
+                                    </Button>
+                                    <GoogleLogin
+                                        onSuccess={handleGoogleSuccess}
+                                        onError={handleGoogleFailure}
+                                        useOneTap
+                                    />
+                                </div>
+                            )}
 
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    fullWidth
-                                    disabled={loading}
-                                >
-                                    {loading ? <CircularProgress size={24} /> : 'Register'}
-                                </Button>
-                                <GoogleLogin
-                                    onSuccess={handleGoogleSuccess}
-                                    onError={handleGoogleFailure}
-                                    useOneTap
-                                />
-                            </div>
-                        )}
+                            {activeTab === 1 && (
+                                <div className="space-y-4">
+                                    <TextField
+                                        label="Email"
+                                        name="email"
+                                        value={userDetails.email}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        required
+                                    />
+                                    <TextField
+                                        label="Password"
+                                        name="password"
+                                        type={passwordVisible ? 'text' : 'password'}
+                                        value={userDetails.password}
+                                        onChange={handleInputChange}
+                                        fullWidth
+                                        required
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={togglePasswordVisibility}>
+                                                        {passwordVisible ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
 
-                        {activeTab === 1 && (
-                            <div className="space-y-4">
-                                <TextField
-                                    label="Email"
-                                    name="email"
-                                    value={userDetails.email}
-                                    onChange={handleInputChange}
-                                    fullWidth
-                                    required
-                                />
-                                <TextField
-                                    label="Password"
-                                    name="password"
-                                    type={passwordVisible ? 'text' : 'password'}
-                                    value={userDetails.password}
-                                    onChange={handleInputChange}
-                                    fullWidth
-                                    required
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton onClick={togglePasswordVisibility}>
-                                                    {passwordVisible ? <Visibility /> : <VisibilityOff />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        type="submit"
+                                        fullWidth
+                                        disabled={loading}
+                                    >
+                                        {loading ? <CircularProgress size={24} /> : 'Login'}
+                                    </Button>
 
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    type="submit"
-                                    fullWidth
-                                    disabled={loading}
-                                >
-                                    {loading ? <CircularProgress size={24} /> : 'Login'}
-                                </Button>
+                                    <GoogleLogin
+                                        onSuccess={handleGoogleSuccess}
+                                        onError={handleGoogleFailure}
+                                        useOneTap
+                                    />
+                                </div>
+                            )}
+                        </form>
 
-                                <GoogleLogin
-                                    onSuccess={handleGoogleSuccess}
-                                    onError={handleGoogleFailure}
-                                    useOneTap
-                                />
-                            </div>
-                        )}
-                    </form>
+                        <br />
 
-                    <br />
-
-                    {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+                        {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+                    </div>
                 </div>
+
+                {/* Welcome Modal */}
+                <Dialog open={welcomeModalOpen}>
+                    <DialogTitle>Welcome!</DialogTitle>
+                    <DialogContent>
+                        <Typography>Thank you for registering. Please complete your profile.</Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={closeWelcomeModal} color="primary">
+                            Complete Profile
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
+                {/* Profile Completion Modal */}
+                <Dialog
+                    open={profileCompleteModalOpen}
+                    onClose={() => setProfileCompleteModalOpen(false)}
+                >
+                    <DialogTitle>Already Registered!</DialogTitle>
+                    <DialogContent>
+                        <Typography>You have already registered. Please complete your profile.</Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={closeWelcomeModal} color="primary">
+                            Complete Profile
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
-
-            {/* Welcome Modal */}
-            <Dialog open={welcomeModalOpen}>
-                <DialogTitle>Welcome!</DialogTitle>
-                <DialogContent>
-                    <Typography>Thank you for registering. Please complete your profile.</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={closeWelcomeModal} color="primary">
-                        Complete Profile
-                    </Button>
-                </DialogActions>
-            </Dialog>
-
-            {/* Profile Completion Modal */}
-            <Dialog
-                open={profileCompleteModalOpen}
-                onClose={() => setProfileCompleteModalOpen(false)}
-            >
-                <DialogTitle>Already Registered!</DialogTitle>
-                <DialogContent>
-                    <Typography>You have already registered. Please complete your profile.</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={closeWelcomeModal} color="primary">
-                        Complete Profile
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </div>
+        </>
     );
 };
 

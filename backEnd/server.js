@@ -11,6 +11,8 @@ import notificationRoutes from './routes/notificationRoutes.js'; // Import notif
 import paymentRoute from './routes/paymentRoute.js';
 import cors from 'cors';
 import { initializeSocket } from './config/socket.js'; // Import Socket.IO config
+import multer from 'multer'; // Import Multer for file uploads
+import path from 'path'; // To manage file paths
 import './passport-setup.js';
 
 dotenv.config();
@@ -25,6 +27,7 @@ app.set('view engine', 'ejs');
 // Set the directory for views (e.g., "views" folder)
 app.set('views', './views');
 
+// Middleware Setup
 app.use(cors());
 app.use(express.json());
 
@@ -39,10 +42,56 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Error handling middleware
+// Multer Configuration for Image Uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // Path where images will be stored
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|gif/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+    
+    if (extname && mimetype) {
+        return cb(null, true);
+    } else {
+        cb(new Error('Invalid file type. Only JPEG, PNG, and GIF are allowed.'));
+    }
+};
+
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: { fileSize: 5 * 1024 * 1024 } // 5MB file size limit
+});
+
+// Middleware to handle file uploads (you can use it in routes)
+app.post('/api/upload', upload.single('image'), (req, res) => {
+    if (req.file) {
+        res.json({ message: 'File uploaded successfully!', file: req.file });
+    } else {
+        res.status(400).json({ message: 'No file uploaded.' });
+    }
+});
+
+// Serve uploaded files as static assets
+app.use('/uploads', express.static('uploads'));
+
+// Error handling middleware for file upload errors
 app.use((err, req, res, next) => {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    if (err instanceof multer.MulterError) {
+        return res.status(400).json({ message: err.message });
+    }
+    if (err) {
+        return res.status(500).json({ message: 'Server error', error: err });
+    }
+    next();
 });
 
 // Route definitions

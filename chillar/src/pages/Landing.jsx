@@ -27,22 +27,22 @@ export default function Landing() {
                             // backgroundColor: '#F0F0F0'
 
                         }}
-                        className='flex p-14 md:gap-20 gap-10 md:pr-32 flex-col-reverse md:flex-row items-center justify-center'
+                        className='flex p-14 sm:gap-20 gap-10 sm:pr-32 flex-col-reverse sm:flex-row items-center justify-center'
                     >
-                        <div className='md:w-1/2 md:pt-14 md:leading-[60px] leading-[30px]'>
-                            <span className='md:text-5xl text-xl' style={{
+                        <div className='sm:w-1/2 sm:pt-14 sm:leading-[60px] leading-[30px]'>
+                            <span className='sm:text-5xl text-xl' style={{
                                 fontFamily: 'Krona One'
                             }}>
                                 Effortless Event Management and Payments for <br />
                                 <span className='text-[#1F4EB4]'>Students and Clubs.</span>
                             </span> <br />
                             {/* &nbsp;&nbsp; */}
-                            <span className='md:text-xl text-sm font-bold'>Seamless | Unified | Engagement</span>
-                            <br /><br className='md:hidden'/>
+                            <span className='sm:text-xl text-sm font-bold'>Seamless | Unified | Engagement</span>
+                            <br /><br className='sm:hidden'/>
                             <Button variant="contained">Get Started</Button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <Button color="secondary">Know More</Button>
                         </div>
-                        <img className='md:h-1/2' src={monkey} alt="" />
+                        <img className='sm:h-1/2' src={monkey} alt="" />
                     </div>
                 </div>
                 <Footer />

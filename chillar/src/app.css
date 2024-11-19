@@ -1,1 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Handlee&family=Krona+One&display=swap');
+
+
+*{
+    user-select: none;
+}

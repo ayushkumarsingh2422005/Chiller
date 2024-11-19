@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Drawer from './Drawer'; // Make sure Drawer is implemented correctly
+import { Link } from 'react-router-dom';
 
 export default function TopBar() {
     const [drawer, setDrawer] = useState(false);
@@ -41,7 +42,9 @@ export default function TopBar() {
                     </Typography>
 
                     {/* Login Button */}
-                    <Button color="inherit">Login</Button>
+                    <Link to='/user-registration'>
+                        <Button color="inherit">Login</Button>
+                    </Link>
                 </Toolbar>
             </AppBar>
 

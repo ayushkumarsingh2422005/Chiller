@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Landing } from './pages';
 import './app.css'
-// import UserRegistration from './pages/UserRegistrationLoginPage';
-import UserRegistrationLoginPage from './pages/UserRegistrationLoginPage';
+import UserAuthPage from './pages/UserAuthPage';
 if (process.env.NODE_ENV === 'development') {
   const noop = () => {};
   console.warn = noop; // This will suppress all warnings
@@ -14,7 +13,7 @@ function App() {
     <Router future={{ v7_startTransition: true }}>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/user-registration" element={<UserRegistrationLoginPage />} />
+        <Route path="/user-registration" element={<UserAuthPage />} />
       </Routes>
     </Router>
   );

@@ -20,6 +20,10 @@ const UserSchema = new mongoose.Schema({
     googleId: {
         type: String // Stores the Google ID if logged in via Google
     },
+    profileCompleted:{
+        type: Boolean,
+        default: false
+    },
     profilePicture: {
         type: String, // URL for the user's profile picture
         default: "" // Default to an empty string
@@ -28,12 +32,13 @@ const UserSchema = new mongoose.Schema({
     // Identification
     idcard: {
         type: String, // Link or ID of the user's ID card
-        required: true
+        // required: true
     },
     registrationNumber: {
-        type: String, // Unique registration number for the user
-        required: true,
-        unique: true
+        type: String,
+        required: false,
+        unique: true,
+        sparse: true
     },
 
     // Status
@@ -46,12 +51,12 @@ const UserSchema = new mongoose.Schema({
     // Academic Details
     program: {
         type: String,
-        required: true,
+        // required: true,
         enum: ['UG', 'PG', 'Ph.d'] // User's academic program
     },
     branch: {
         type: String,
-        required: true // User's branch or department
+        // required: true // User's branch or department
     },
 
     // Demographics

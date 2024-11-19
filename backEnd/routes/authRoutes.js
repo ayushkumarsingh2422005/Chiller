@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, forgotPassword, resetPassword, googleAuthCallback } from '../controllers/authControllerUser.js';
+import { register, login, forgotPassword, resetPassword, googleAuth } from '../controllers/authControllerUser.js';
 import { registerOrganization, loginOrganization, forgotPasswordOrganization, resetPasswordOrganization } from '../controllers/authControllerOrganization.js'; // Import organization controller functions
 import passport from 'passport';
 
@@ -20,12 +20,8 @@ router.post('/user/forgot-password', forgotPassword);
 router.post('/user/reset-password', resetPassword);
 
 // Google Authentication for User
-router.get('/user/google', passport.authenticate('google', {
-    scope: ['profile', 'email']
-}));
+router.post('/user/google-login', googleAuth);
 
-// Callback route for Google to redirect to for User
-router.get('/user/google/callback', passport.authenticate('google', { session: false }), googleAuthCallback);
 
 // **Organization Authentication Routes**
 

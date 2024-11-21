@@ -45,7 +45,7 @@ export const register = async (req, res) => {
         await user.save();
 
         // const payload = { userId: user._id };
-        const token = generateToken({ id: user._id });
+        const token = generateToken({ id: user._id, type: "user" });
 
         res.status(201).json({ success: true, message: 'User registered successfully', token });
     } catch (error) {
@@ -70,7 +70,7 @@ export const login = async (req, res) => {
         if (!isMatch) return res.status(400).json({ msg: 'Invalid email or password' });
 
         // const payload = { userId: user._id };
-        const token = generateToken({ id: user._id });
+        const token = generateToken({ id: user._id, type: "user" });
 
         res.json({ token });
     } catch (error) {

@@ -12,8 +12,14 @@ export const authenticateUser = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = await User.findById(decoded.id).select('-password'); // Attach user to request
-        if (!req.user) throw new Error();
+        console.log(decoded);
+        if (decoded.type === 'user') {
+            req.user = await User.findById(decoded.id).select('-password'); // Attach user to request
+            if (!req.user) throw new Error();
+        } else if (decoded.type === 'organization') {
+            req.organization = await Organization.findById(decoded.id).select('-password'); // Attach org to request
+            if (!req.organization) throw new Error();
+        }
         next();
     } catch (error) {
         res.status(401).json({ msg: 'Invalid token' });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TopBar } from '../components';
-import tacPdf from '../assets/policy/termsandcondition.pdf';
+import ppPdf from '../assets/policy/privacypolicy.pdf';
 
 export default function PrivacyPolicy() {
   return (
@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
       <TopBar />
       <div className="w-full h-full">
         <iframe
-          src={tacPdf}
+          src={ppPdf}
           title="Privacy Policy"
           className="w-full h-screen border-none rounded-md"
           style={{ objectFit: 'contain' }} // Ensures PDF scales correctly without cropping

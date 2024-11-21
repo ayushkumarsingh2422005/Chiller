@@ -38,6 +38,15 @@ export default function Drawer({ openState, toggleDrawer }) {
         </ListItem>
 
         <ListItem disablePadding>
+          <ListItemButton component={Link} to="/terms-and-condition">
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Terms And Conditon" />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
           <ListItemButton component={Link} to="/about-us">
             <ListItemIcon>
               <InfoIcon />

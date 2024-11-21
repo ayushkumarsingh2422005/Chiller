@@ -29,11 +29,11 @@ export default function Drawer({ openState, toggleDrawer }) {
       <List>
         {/* Manually specify the path for each menu item */}
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="/terms-and-conditions">
+          <ListItemButton component={Link} to="/privacy-policy">
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="Terms and Conditions" />
+            <ListItemText primary="Privacy Policy" />
           </ListItemButton>
         </ListItem>
 

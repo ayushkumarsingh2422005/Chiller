@@ -16,6 +16,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import GroupsIcon from '@mui/icons-material/Groups';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 export default function Drawer({ openState, toggleDrawer }) {
   const list = (
@@ -73,6 +74,15 @@ export default function Drawer({ openState, toggleDrawer }) {
         </ListItem>
 
         <ListItem disablePadding>
+          <ListItemButton component={Link} to="/faq">
+            <ListItemIcon>
+              <HelpOutlineIcon />
+            </ListItemIcon>
+            <ListItemText primary="FaQ" />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
           <ListItemButton component={Link} to="/bookmarks">
             <ListItemIcon>
               <BookmarkIcon />
@@ -81,7 +91,10 @@ export default function Drawer({ openState, toggleDrawer }) {
           </ListItemButton>
         </ListItem>
         
-        <ListItem disablePadding>
+        <ListItem disablePadding onClick={()=>{
+          localStorage.removeItem("token");
+          
+        }}>
           <ListItemButton component={Link} to="/logout">
             <ListItemIcon>
               <LogoutIcon />

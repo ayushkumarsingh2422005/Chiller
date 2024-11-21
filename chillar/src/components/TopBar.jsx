@@ -37,9 +37,13 @@ export default function TopBar() {
                     </IconButton>
 
                     {/* Title */}
+
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        News
+                        <Link to={'/'}>
+                            {import.meta.env.VITE_AGENCY_NAME}
+                        </Link>
                     </Typography>
+
 
                     {/* Login Button */}
                     <Link to='/user-registration'>

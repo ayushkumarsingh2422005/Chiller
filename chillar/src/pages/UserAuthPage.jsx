@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField, Button, RadioGroup, FormControlLabel, Radio, FormControl, CircularProgress, Tabs, Tab, Paper, Dialog, DialogActions, DialogContent, DialogTitle, Typography, Alert, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -117,6 +117,13 @@ const UserAuthPage = () => {
         setWelcomeModalOpen(false);
         navigate('/complete-profile');
     };
+
+    useEffect(()=>{
+        if (localStorage.getItem('token')) {
+            navigate('/dashboard');
+        }
+
+    },[]);
 
     return (
         <>

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import Organization from '../models/Organization.js';
+import Organization from '../models/Orginization.js';
 
 /**
  * Middleware to verify JWT token
@@ -12,7 +12,7 @@ export const authenticateUser = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = await User.findById(decoded.userId).select('-password'); // Attach user to request
+        req.user = await User.findById(decoded.id).select('-password'); // Attach user to request
         if (!req.user) throw new Error();
         next();
     } catch (error) {

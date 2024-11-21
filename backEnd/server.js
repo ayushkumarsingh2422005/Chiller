@@ -14,6 +14,8 @@ import { initializeSocket } from './config/socket.js'; // Import Socket.IO confi
 import multer from 'multer'; // Import Multer for file uploads
 import path from 'path'; // To manage file paths
 import './passport-setup.js';
+// import cors from 'cors';
+
 
 dotenv.config();
 connectDB();

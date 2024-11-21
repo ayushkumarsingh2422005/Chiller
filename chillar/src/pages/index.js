@@ -2,5 +2,5 @@ import Landing from "./Landing"
 import UserAuthPage from './UserAuthPage'
 import TandC from "./TandC"
 import PrivacyPolicy from "./PrivacyPolicy"
-import FAQ from "./faq"
+import FAQ from "./FAQ"
 export {Landing, UserAuthPage, TandC, PrivacyPolicy, FAQ}

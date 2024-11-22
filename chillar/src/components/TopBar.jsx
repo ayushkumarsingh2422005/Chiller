@@ -54,16 +54,19 @@ export default function TopBar() {
     };
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1}}>
             <AppBar position="fixed">
-                <Toolbar>
+                <Toolbar sx={{
+                    background: "linear-gradient(to left, #F2F3FF, #D6E8FF, #fefeff)",
+                    color: "black"
+                }}>
                     {/* Left Icon to Toggle Drawer */}
                     <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        sx={{ mr: 2 }}
+                        sx={{ mr: 2}}
                         onClick={toggleDrawer(true)} // Open drawer on click
                     >
                         <MenuIcon />
@@ -119,7 +122,7 @@ export default function TopBar() {
                                                 justifyContent: 'center',
                                                 alignItems: 'center',
                                                 mr: 1,
-                                                aspectRatio: 1/1
+                                                aspectRatio: 1 / 1
                                             }}>
                                                 <Typography sx={{ color: 'white' }}>1</Typography>
                                             </Box>
@@ -143,7 +146,7 @@ export default function TopBar() {
                                                 justifyContent: 'center',
                                                 alignItems: 'center',
                                                 mr: 1,
-                                                aspectRatio: 1/1
+                                                aspectRatio: 1 / 1
                                             }}>
                                                 <Typography sx={{ color: 'white' }}>2</Typography>
                                             </Box>
@@ -167,7 +170,7 @@ export default function TopBar() {
                                                 justifyContent: 'center',
                                                 alignItems: 'center',
                                                 mr: 1,
-                                                aspectRatio: 1/1
+                                                aspectRatio: 1 / 1
                                             }}>
                                                 <Typography sx={{ color: 'white' }}>3</Typography>
                                             </Box>
@@ -191,7 +194,7 @@ export default function TopBar() {
                                                 justifyContent: 'center',
                                                 alignItems: 'center',
                                                 mr: 1,
-                                                aspectRatio: 1/1
+                                                aspectRatio: 1 / 1
                                             }}>
                                                 <Typography sx={{ color: 'white' }}>4</Typography>
                                             </Box>
@@ -219,16 +222,18 @@ export default function TopBar() {
                             </Popover>
 
                             <div className="w-2"></div>
-                            <Avatar
-                                alt={userData.name}
-                                src={userData.profilePicture} // Assuming `profilePicture` is the avatar URL
-                                sx={{ bgcolor: generateRandomDarkColor() }}
-                            >
-                                {getInitials(userData.name)} {/* Fallback to initials */}
-                            </Avatar>
+                            <Link to={'/dashboard'}>
+                                <Avatar
+                                    alt={userData.name}
+                                    src={userData.profilePicture} // Assuming `profilePicture` is the avatar URL
+                                    sx={{ bgcolor: generateRandomDarkColor() }}
+                                >
+                                    {getInitials(userData.name)} {/* Fallback to initials */}
+                                </Avatar>
+                            </Link>
                         </div>
                     ) : (
-                        <Link to='/user-registration'>
+                        <Link to='/user/registration'>
                             <Button color="inherit">Login</Button>
                         </Link>
                     )}

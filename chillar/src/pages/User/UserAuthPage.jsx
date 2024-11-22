@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { TextField, Button, RadioGroup, FormControlLabel, Radio, FormControl, CircularProgress, Tabs, Tab, Paper, Dialog, DialogActions, DialogContent, DialogTitle, Typography, Alert, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/images/monkey.png';
+import logo from '../../assets/images/monkey.png';
 import GoogleIcon from '@mui/icons-material/Google';
 import { GoogleLogin } from '@react-oauth/google';
-import TopBar from '../components/TopBar';
+// import TopBar from '../components/TopBar';
+import { TopBar } from '../../components';
 
-const UserAuthPage = () => {
+export default function UserAuthPage(){
     const [activeTab, setActiveTab] = useState(0); // 0: Register, 1: Login
     const [userDetails, setUserDetails] = useState({
         name: '',
@@ -302,4 +303,4 @@ const UserAuthPage = () => {
     );
 };
 
-export default UserAuthPage;
+// export default UserAuthPage;

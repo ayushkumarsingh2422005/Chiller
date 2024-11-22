@@ -1,5 +1,5 @@
 import React from 'react'
-import { Footer, TopBar } from '../components'
+import { Footer, TopBar } from '../../components'
 import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';

@@ -84,6 +84,12 @@ const UserSchema = new mongoose.Schema({
     notificationsEnabled: {
         type: Boolean,
         default: true // Allows users to enable/disable notifications
+    },
+    college: {
+        type: String,
+    },
+    phone:{
+        type: String
     }
 }, {
     timestamps: true // Automatically adds createdAt and updatedAt timestamps

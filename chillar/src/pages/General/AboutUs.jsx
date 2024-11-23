@@ -5,24 +5,26 @@ export default function AboutUs() {
   return (
     <>
       <TopBar />
-      <div style={{
-        backgroundImage: `url(${bg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center 70%',
-        fontFamily: 'Krona One'
+      <img src={bg} alt="" className='mt-16' /> <br /><br />
+
+      <div className='text-[56px] text-center' style={{
+        fontFamily: "Krona One"
       }}>
-        <div className='max-w-7xl text-5xl mt-20 mx-auto pt-20 pb-5'>
-          Who We Are?
-        </div>
-        <div className='max-w-7xl text-xl mx-auto'>
-        At Chillar, we simplify event management and payments for students and clubs, creating a seamless experience for campus engagement.
-        </div>
-        <div className='max-w-7xl text-5xl mt-20 mx-auto pb-5'>
-          Who We Are?
-        </div>
-        <div className='max-w-7xl text-xl mx-auto'>
-        At Chillar, we simplify event management and payments for students and clubs, creating a seamless experience for campus engagement.
-        </div>
+        Who We Are <span className='text-[#1F4EB4]'>?</span>
+        <div className='w-20 h-1 bg-[#1F4EB4] mx-auto rounded-lg'></div>
+      </div> <br />
+      <div className='max-w-4xl mx-auto text-center text-[32px] font-medium'>
+        We are Chillar, a platform dedicated to simplifying event management and payments for students and clubs, fostering seamless campus engagement.
+      </div> <br /><br /><br /><br />
+
+      <div className='text-[56px] text-center' style={{
+        fontFamily: "Krona One"
+      }}>
+        OUR <span className='text-[#1F4EB4]'>MISSION</span>
+        <div className='w-20 h-1 bg-[#1F4EB4] mx-auto rounded-lg'></div>
+      </div> <br />
+      <div className='max-w-4xl mx-auto text-center text-[32px] font-medium'>
+        We are Chillar, a platform dedicated to simplifying event management and payments for students and clubs, fostering seamless campus engagement.
       </div>
       <Footer />
     </>

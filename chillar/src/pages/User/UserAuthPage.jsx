@@ -101,7 +101,7 @@ export default function UserAuthPage(){
             // console.log(data);
 
             if (res.ok) {
-                navigate('/dashboard');
+                navigate('/user/dashboard');
             } else {
                 console.error('Error during Google Login:', data.message);
             }
@@ -121,7 +121,7 @@ export default function UserAuthPage(){
 
     useEffect(()=>{
         if (localStorage.getItem('token')) {
-            navigate('/dashboard');
+            navigate('/user/dashboard');
         }
 
     },[]);

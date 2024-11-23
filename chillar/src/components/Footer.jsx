@@ -43,52 +43,68 @@ export default function Footer() {
 
         <div></div>
         {/* Quick Links */}
-        <div className="pt-24">
-          <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-          <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:underline">Home</a></li>
-            <li><a href="#" className="hover:underline">About Us</a></li>
-            <li><a href="#" className="hover:underline">Features</a></li>
-            <li><a href="#" className="hover:underline">Contact</a></li>
-            <li><a href="#" className="hover:underline">FAQ</a></li>
-          </ul>
-          <br /><br />
-
-          <h3 className="text-lg font-semibold mb-4">Our Company</h3>
-          <ul className="space-y-2 text-sm">
-            <li><Link to={'/terms-and-conditon'} className="hover:underline">Terms & condition</Link></li>
-            <li><Link to={'/privacy-policy'} className="hover:underline">Privacy Policy</Link></li>
-            <li><Link href="#" className="hover:underline">Transaction Policy</Link></li>
-            <li><Link href="#" className="hover:underline">Contact</Link></li>
-            <li><Link href="#" className="hover:underline">FAQ</Link></li>
-          </ul>
+        <div className="flex flex-row sm:flex-col content-end justify-evenly">
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#" className="hover:underline">Home</a></li>
+              <li><a href="#" className="hover:underline">About Us</a></li>
+              <li><a href="#" className="hover:underline">Features</a></li>
+              <li><a href="#" className="hover:underline">Contact</a></li>
+              <li><a href="#" className="hover:underline">FAQ</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Our Company</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link to={'/terms-and-conditon'} className="hover:underline">Terms & condition</Link></li>
+              <li><Link to={'/privacy-policy'} className="hover:underline">Privacy Policy</Link></li>
+              <li><Link href="#" className="hover:underline">Transaction Policy</Link></li>
+              <li><Link href="#" className="hover:underline">Contact</Link></li>
+              <li><Link href="#" className="hover:underline">FAQ</Link></li>
+            </ul>
+          </div>
         </div>
 
         {/* User Actions */}
-        <div className="pt-24">
-          <h3 className="text-lg font-semibold mb-4">User Actions</h3>
-          <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:underline">Register</a></li>
-            <li><a href="#" className="hover:underline">Log in</a></li>
-            <li><a href="#" className="hover:underline">Create Event</a></li>
-            <li><a href="#" className="hover:underline">Contact</a></li>
-            <li><a href="#" className="hover:underline">FAQ</a></li>
-          </ul>
+        <div className="flex flex-row sm:flex-col content-end justify-evenly">
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Student</h3>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#" className="hover:underline">Register</a></li>
+              <li><a href="#" className="hover:underline">Log in</a></li>
+              <li><a href="#" className="hover:underline">Explore Event</a></li>
+              <li><a href="#" className="hover:underline">Payment History</a></li>
+              <li><a href="#" className="hover:underline">Wallet</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Organization</h3>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#" className="hover:underline">Promote Event</a></li>
+              <li><a href="#" className="hover:underline">Host an Event</a></li>
+              <li><a href="#" className="hover:underline">DashBoard</a></li>
+              <li><a href="#" className="hover:underline">Ticketing Solution</a></li>
+              <li><a href="#" className="hover:underline">Checkout Demo</a></li>
+            </ul>
+          </div>
         </div>
 
         {/* Social Media */}
-        <div className="pt-24">
-          <h3 className="text-lg font-semibold mb-4">Adress</h3>
-          <div className="text-sm">
-            Phone : +91 829 979 7516
+        <div className="pt-10">
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Adress</h3>
+            <div className="text-sm">
+              Phone : +91 829 979 7516
+            </div>
+            <div className="text-sm">
+              Email : ayush2422005@gmail.com
+            </div> <br />
+            <div className="text-sm">
+              Chillar, 123 Main St, City, State, 12345
+            </div><br />
+            <img src={currentlocation} alt="" className="w-full" />
           </div>
-          <div className="text-sm">
-            Email : ayush2422005@gmail.com
-          </div> <br />
-          <div className="text-sm">
-            Chillar, 123 Main St, City, State, 12345
-          </div><br />
-          <img src={currentlocation} alt="" className="w-full" />
         </div>
       </div>
 

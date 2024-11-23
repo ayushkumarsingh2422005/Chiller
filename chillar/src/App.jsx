@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { FAQ, Landing, PrivacyPolicy, TandC, UserAuthPage, AboutUs, Page404, UserDashboard, UserProfile, BookMark, Checkout, EventSearch, OrgRegistrationLoginPage, OrginizationDashboard, OrginizationProfile, ShowEvent, EditEvent } from './pages';
+import { Landing, PrivacyPolicy, TandC, UserAuthPage, AboutUs, Page404, UserDashboard, UserProfile, BookMark, Checkout, EventSearch, OrgRegistrationLoginPage, OrginizationDashboard, OrginizationProfile, ShowEvent, EditEvent, FAQ } from './pages';
 import './app.css'
 // import UserAuthPage from './pages/UserAuthPage';
 // import AboutUs from './pages/AboutUs';
@@ -13,11 +13,12 @@ function App() {
   return (
     <Router future={{ v7_startTransition: true }}>
       <Routes>
-        <Route path="/" element={<Landing />}>
+        <Route>
+          <Route path='/' element={<Landing/> } />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="terms-and-condition" element={<TandC />} />
           <Route path="faq" element={<FAQ />} />
-          <Route path="aboutus" element={<AboutUs />} />
+          <Route path="about-us" element={<AboutUs />} />
         </Route>
         <Route path='/user'>
           <Route path="registration" element={<UserAuthPage />} />

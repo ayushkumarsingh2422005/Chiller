@@ -4,8 +4,7 @@ import { TopBar } from '../../components'
 export default function EventSearch() {
   return (
     <>
-      <TopBar />
-      <div className='pt-20'>
+      <div className=''>
         Event Search
       </div>
     </>

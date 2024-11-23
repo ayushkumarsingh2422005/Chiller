@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function BookMark() {
+export default function UserSetting() {
   return (
     <div>
-      bookmark
+      setting
     </div>
   )
 }

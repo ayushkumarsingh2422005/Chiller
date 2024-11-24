@@ -29,7 +29,7 @@ export const register = async (req, res) => {
 
     try {
         let user = await User.findOne({ email });
-       
+
         if (user) {
             return res.status(400).json({
                 success: false,
@@ -136,25 +136,34 @@ export const googleAuth = async (req, res) => {
         // Verify Google Token
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: process.env.GOOGLE_CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
+            audience: process.env.GOOGLE_CLIENT_ID,
         });
 
         const payload = ticket.getPayload();
-        const { email, name, picture } = payload;
+        const { email, name, picture, sub } = payload; // Use 'sub' as the unique identifier
 
         // Find or Create User in Database
         let user = await User.findOne({ email });
         if (!user) {
-            user = new User({ name, email, profilePicture: picture, googleId: token });
+            // Create a new user
+            user = new User({ name, email, profilePicture: picture, googleId: sub });
             await user.save();
+        } else {
+            // Only update fields if they are different to avoid redundant writes
+            if (user.name !== name || user.profilePicture !== picture || user.googleId !== sub) {
+                user.name = name;
+                user.profilePicture = picture;
+                user.googleId = sub;
+                await user.save();
+            }
         }
 
         // Generate JWT for the User
-        const jwtToken = generateToken({ id: user._id });
+        const jwtToken = generateToken({ id: user._id, type: "user" });
 
         res.status(200).json({ message: 'Login successful', token: jwtToken });
     } catch (error) {
-        console.error('Error verifying Google token:', error);
+        console.error('Error verifying Google token:', error.message || error);
         res.status(401).json({ message: 'Invalid token' });
     }
 };

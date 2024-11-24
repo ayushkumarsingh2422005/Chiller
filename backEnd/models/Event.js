@@ -23,7 +23,6 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
     // Event Status
     status: {
         type: String,
@@ -35,7 +34,6 @@ const eventSchema = new mongoose.Schema({
         enum: ['public', 'private'], // Determines who can view the event
         default: 'public'
     },
-
     // Event Organizer and Participation
     organizer: {
         type: mongoose.Schema.Types.ObjectId,
@@ -52,7 +50,6 @@ const eventSchema = new mongoose.Schema({
         type: Number, // Maximum number of attendees allowed
         required: true
     },
-
     // Registration Details
     registrationRequired: {
         type: Boolean,
@@ -77,7 +74,6 @@ const eventSchema = new mongoose.Schema({
             message: 'Registration deadline must be in the future.'
         }
     },
-
     // Event Assets
     bannerImage: {
         type: String, // URL of the banner image for the event
@@ -89,7 +85,6 @@ const eventSchema = new mongoose.Schema({
             link: { type: String } // Links to slides, recordings, or other resources
         }
     ],
-
     // Social Media Links
     socialLinks: {
         facebook: { type: String, default: "" },
@@ -99,7 +94,6 @@ const eventSchema = new mongoose.Schema({
         youtube: { type: String, default: "" },
         tiktok: { type: String, default: "" }
     },
-
     // Analytics
     totalRegistrations: {
         type: Number, // Tracks the number of registrations
@@ -109,7 +103,6 @@ const eventSchema = new mongoose.Schema({
         type: Number, // Tracks the number of actual attendees
         default: 0
     },
-
     // Post-Event Fields
     postEventSurvey: {
         type: String, // Link to a post-event survey or feedback form

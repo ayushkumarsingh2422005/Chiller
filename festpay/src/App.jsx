@@ -23,7 +23,7 @@ function App() {
           <Route path="event" element={<EventDetail />} />
         </Route>
         <Route path='/user'>
-          <Route path="registration" element={<UserAuthPage />} />
+          <Route path="auth" element={<UserAuthPage />} />
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="profile" element={<UserProfile />} />
           <Route path="bookmark" element={<BookMark />} />

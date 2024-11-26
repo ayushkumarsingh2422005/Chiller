@@ -13,14 +13,14 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
         {/* Logo and Description */}
         <div className="space-y-4 ">
-          <img src={monkey} alt="Chillar Logo" className="h-20" />
+          <img src={import.meta.env.VITE_FULL_LIGHT_LOGO_PATH} alt="FestPay Logo" className="h-20" />
           <p className="text-sm leading-relaxed">
-            Chillar is a comprehensive platform designed to streamline event
+            {import.meta.env.VITE_AGENCY_NAME} is a comprehensive platform designed to streamline event
             management and participation for students and clubs. It allows
             students to easily register, discover events, and make secure
             payments, while clubs can create and manage events, track
             participant lists, and handle payments efficiently. With
-            user-friendly tools and seamless integration, Chillar simplifies the
+            user-friendly tools and seamless integration, {import.meta.env.VITE_AGENCY_NAME} simplifies the
             entire process, making event organization and participation
             hassle-free for all.
           </p>
@@ -102,7 +102,7 @@ export default function Footer() {
               Email : ayush2422005@gmail.com
             </div> <br />
             <div className="text-sm">
-              Chillar, 123 Main St, City, State, 12345
+            {import.meta.env.VITE_AGENCY_NAME}, 123 Main St, City, State, 12345
             </div><br />
             <img src={currentlocation} alt="" className="w-full" />
           </div>
@@ -110,7 +110,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-blue-700 mt-8 pt-4 text-center text-sm">
-        © 2024 Chillar. All Rights Reserved.
+        © 2024 {import.meta.env.VITE_AGENCY_NAME}. All Rights Reserved.
       </div>
     </footer>
   );

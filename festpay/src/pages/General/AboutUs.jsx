@@ -20,7 +20,7 @@ export default function AboutUs() {
       </div>
       <br />
       <div className="max-w-4xl mx-auto text-center text-[16px] md:text-[20px] font-medium">
-        We are Chillar, a platform dedicated to simplifying event management and payments for students and clubs, fostering seamless campus engagement.
+        We are {import.meta.env.VITE_AGENCY_NAME}, a platform dedicated to simplifying event management and payments for students and clubs, fostering seamless campus engagement.
       </div>
       <br /><br /><br /><br />
 
@@ -36,7 +36,7 @@ export default function AboutUs() {
       </div>
       <br />
       <div className="max-w-4xl mx-auto text-center text-[16px] md:text-[20px] font-medium">
-        We are Chillar, a platform dedicated to simplifying event management and payments for students and clubs, fostering seamless campus engagement.
+        We are {import.meta.env.VITE_AGENCY_NAME}, a platform dedicated to simplifying event management and payments for students and clubs, fostering seamless campus engagement.
       </div>
       <br /><br /><br /><br />
 

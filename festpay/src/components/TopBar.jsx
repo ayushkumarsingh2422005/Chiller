@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Drawer from './Drawer'; // Make sure Drawer is implemented correctly
+import textLogo from '../assets/images/textLogo.png';
 import { Link } from 'react-router-dom';
 
 
@@ -42,13 +43,13 @@ export default function TopBar() {
                     {/* Title */}
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         <Link to={'/'}>
-                            {import.meta.env.VITE_AGENCY_NAME}
+                            <img src={import.meta.env.VITE_FULL_DARK_LOGO_PATH} className='h-10' />
                         </Link>
                     </Typography>
 
                     {/* Conditionally render Login or Avatar */}
                     
-                    <Link to='/user/registration'>
+                    <Link to='/user/auth'>
                         <Button color="inherit">Login</Button>
                     </Link>
                 </Toolbar>

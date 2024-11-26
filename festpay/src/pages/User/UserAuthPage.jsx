@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TextField, Button, RadioGroup, FormControlLabel, Radio, FormControl, CircularProgress, Tabs, Tab, Paper, Dialog, DialogActions, DialogContent, DialogTitle, Typography, Alert, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -7,8 +7,11 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { GoogleLogin } from '@react-oauth/google';
 // import TopBar from '../components/TopBar';
 import { TopBar } from '../../components';
+import { UserContext } from '../../context/UserContext';
 
 export default function UserAuthPage(){
+    const {userData, isUserAvailable} = useContext(UserContext);
+    console.log(userData, isUserAvailable);
     const [activeTab, setActiveTab] = useState(0); // 0: Register, 1: Login
     const [userDetails, setUserDetails] = useState({
         name: '',
@@ -66,7 +69,7 @@ export default function UserAuthPage(){
                 if (activeTab === 0) {
                     setWelcomeModalOpen(true);
                 } else {
-                    navigate('/dashboard');
+                    navigate('/user/dashboard');
                 }
             } else {
                 if (activeTab === 1) {
@@ -84,9 +87,6 @@ export default function UserAuthPage(){
 
     const handleGoogleSuccess = async (response) => {
         const googleToken = response.credential;
-
-        // console.log(googleToken);
-
         try {
             const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/user/google-login`, {
                 method: 'POST',
@@ -133,7 +133,7 @@ export default function UserAuthPage(){
                 <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
                     {/* Logo */}
                     <div className="text-center md:text-left md:w-1/3">
-                        <img src={logo} alt="Logo" className="w-auto mx-auto md:mx-0" />
+                        <img src={import.meta.env.VITE_INITIAL_LOGO_PATH} alt="Logo" className="w-auto mx-auto" />
                     </div>
 
                     {/* Form */}

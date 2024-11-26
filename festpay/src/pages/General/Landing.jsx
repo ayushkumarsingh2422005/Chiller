@@ -103,7 +103,7 @@ const HeroSection = () => {
                         <Button variant="contained">Get Started</Button>&nbsp;&nbsp;&nbsp;&nbsp;
                         <Button color="secondary" href='#knowmore'>Know More</Button>
                     </div>
-                    <img className="" src={monkey} alt="" />
+                    <img className="h-2/3 text-center mx-auto" src={import.meta.env.VITE_INITIAL_LOGO_PATH} alt="" />
                 </div>
             </div>
         </div>

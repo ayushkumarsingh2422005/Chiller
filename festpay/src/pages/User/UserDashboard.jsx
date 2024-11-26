@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -32,13 +32,12 @@ import BookMark from "./BookMark";
 import UserTransaction from "./UserTransaction";
 import UserAccount from "./UserAccount";
 import UserNotification from "./UserNotification";
+import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 // import UserProfile from "./UserAccount";
 
 // Example Content components
 
-function OrdersContent() {
-  return <Box><Typography variant="h4">Manage Orders</Typography></Box>;
-}
 
 // Navigation Items
 const NAVIGATION = [
@@ -54,6 +53,15 @@ const NAVIGATION = [
 const drawerWidth = 240;
 
 function UserDashboard(props) {
+  const navigate = useNavigate();
+  const {fetchUserData, isUserAvailable} = useContext(UserContext);
+  useEffect(()=>{
+    fetchUserData();
+    if(!isUserAvailable){
+      localStorage.removeItem("token");
+      navigate("/user/auth");
+    }
+  }, []);
   const { window } = props;
 
   // State to Track Current Screen
@@ -76,7 +84,7 @@ function UserDashboard(props) {
   const drawerContent = (
     <div>
       <Toolbar>
-        <Typography variant="h6" sx={{ ml: 1 }}>Chillar</Typography>
+        <Typography variant="h6" sx={{ ml: 1 }}>FestPay</Typography>
       </Toolbar>
       <Divider />
       <List>

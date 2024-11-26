@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Typography, Avatar, Divider, Button } from "@mui/material";
 import { Phone, Mail, School, Female } from "@mui/icons-material";
+import { UserContext } from "../../context/UserContext";
 
 export default function UserAccount() {
+  const {userData} = useContext(UserContext);
+  console.log(userData);
   return (
     <Box
       sx={{
@@ -19,8 +22,8 @@ export default function UserAccount() {
         <Box sx={{ display: "flex", alignItems: "center" }}>
           {/* Avatar with Border */}
           <Avatar
-            src="https://via.placeholder.com/100" // Replace with actual image URL
-            alt="Profile Picture"
+            src={userData.profilePicture} // Replace with actual image URL
+            alt={userData.name}
             sx={{
               width: 80,
               height: 80,
@@ -29,10 +32,10 @@ export default function UserAccount() {
           />
           <Box sx={{ ml: 2 }}>
             <Typography variant="h6" fontWeight="bold">
-              Bhupender Jogi
+              {userData.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Profile last updated - 31st Nov'24
+              Profile last updated - {userData.updatedAt}
             </Typography>
             {/* Progress Bar and View ID */}
             <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
@@ -83,19 +86,19 @@ export default function UserAccount() {
       <Box>
         <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
           <Female sx={{ color: "#4caf50", mr: 2 }} />
-          <Typography>Female</Typography>
+          <Typography>{userData.gender}</Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
           <Phone sx={{ color: "#4caf50", mr: 2 }} />
-          <Typography>+91 9876543210</Typography>
+          <Typography>{userData.phone ? userData.phone : "xxxxxxxxxx"}</Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
           <Mail sx={{ color: "#4caf50", mr: 2 }} />
-          <Typography>bhupenderjogi420@gmail.com</Typography>
+          <Typography>{userData.email}</Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <School sx={{ color: "#4caf50", mr: 2 }} />
-          <Typography>National Institute of Technology Jamshedpur</Typography>
+          <Typography>{userData.college ? userData.college : "Not Chosen Yet"}</Typography>
         </Box>
       </Box>
     </Box>

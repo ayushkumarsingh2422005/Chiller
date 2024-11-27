@@ -57,10 +57,10 @@ function UserDashboard(props) {
   const {fetchUserData, isUserAvailable} = useContext(UserContext);
   useEffect(()=>{
     fetchUserData();
-    if(!isUserAvailable){
-      localStorage.removeItem("token");
-      navigate("/user/auth");
-    }
+    // if(!isUserAvailable){
+    //   localStorage.removeItem("token");
+    //   navigate("/user/auth");
+    // }
   }, []);
   const { window } = props;
 

@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Drawer from './Drawer'; // Make sure Drawer is implemented correctly
-import textLogo from '../assets/images/textLogo.png';
 import { Link } from 'react-router-dom';
 
 

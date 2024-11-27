@@ -4,7 +4,30 @@ import { Phone, Mail, School, Female } from "@mui/icons-material";
 import { UserContext } from "../../context/UserContext";
 
 export default function UserAccount() {
-  const {userData} = useContext(UserContext);
+  // const {userData} = useContext(UserContext);
+  const userData = {
+    "_id": {
+      "$oid": "673cbdbf4c7cfe90ebfb4f51"
+    },
+    name: "Ayush Kumar",
+    email: "ayush2422005@gmail.com",
+    "password": "$2a$10$tl2GVM5p6AfX1Kr87imp9eXgZsSbC7T3qLedSCELp58krNUuFwYB.",
+    "profileCompleted": false,
+    profilePicture: "https://lh3.googleusercontent.com/a/ACg8ocLytd15xk0Cgz22HqoPOZqIgNTZ9NQtUj3do4Pq5uhbvKi5Pmci=s96-c",
+    "active": true,
+    gender: "Male",
+    "notificationsEnabled": true,
+    "enrolledEvents": [],
+    createdAt: "2024-11-19T16:33:03.649Z",
+    updatedAt: "2024-11-25T10:09:11.395Z",
+    "__v": 0,
+    "googleId": "116178257685431897801",
+    phone: "8299797515",
+    college: "National Institute of technology Jamshedput",
+    "registrationNumber": "2023UGCS086",
+    "branch": "CSE",
+    "program": "UG"
+  };
   console.log(userData);
   return (
     <Box

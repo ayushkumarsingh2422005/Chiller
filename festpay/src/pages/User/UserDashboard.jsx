@@ -54,8 +54,8 @@ const drawerWidth = 240;
 
 function UserDashboard(props) {
   const navigate = useNavigate();
-  const {fetchUserData, isUserAvailable} = useContext(UserContext);
-  useEffect(()=>{
+  const { fetchUserData, isUserAvailable } = useContext(UserContext);
+  useEffect(() => {
     fetchUserData();
     // if(!isUserAvailable){
     //   localStorage.removeItem("token");
@@ -84,7 +84,11 @@ function UserDashboard(props) {
   const drawerContent = (
     <div>
       <Toolbar>
-        <Typography variant="h6" sx={{ ml: 1 }}>FestPay</Typography>
+        <Typography variant="h6" sx={{ ml: 1 }}>
+          <Link to={"/"}>
+            <img src={import.meta.env.VITE_FULL_DARK_LOGO_PATH} className="px-4" />
+          </Link>
+        </Typography>
       </Toolbar>
       <Divider />
       <List>

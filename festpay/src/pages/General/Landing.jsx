@@ -101,7 +101,9 @@ const HeroSection = () => {
                         <br />
                         <br className="sm:hidden" />
                         <Button variant="contained">Get Started</Button>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <Button color="secondary" href='/user/dashboard'>Know More</Button>
+                        <Link to={"/user/dashboard"}>
+                            <Button color="secondary">Know More</Button>
+                        </Link>
                     </div>
                     <img className="h-2/3 text-center mx-auto" src={import.meta.env.VITE_INITIAL_LOGO_PATH} alt="" />
                 </div>

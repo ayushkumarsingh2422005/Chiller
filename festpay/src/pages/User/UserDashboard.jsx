@@ -33,7 +33,7 @@ import UserTransaction from "./UserTransaction";
 import UserAccount from "./UserAccount";
 import UserNotification from "./UserNotification";
 import { UserContext } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import UserProfile from "./UserAccount";
 
 // Example Content components

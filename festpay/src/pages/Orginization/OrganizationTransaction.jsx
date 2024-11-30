@@ -1,12 +1,11 @@
 import React from 'react'
 import { TopBar } from '../../components'
 
-export default function OrginizationProfile() {
+export default function OrganizationTransaction() {
   return (
     <>
-      <TopBar />
       <div className='pt-20'>
-        Org search
+        Org transition
       </div>
     </>
   )

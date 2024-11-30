@@ -1,7 +1,6 @@
 import express from 'express';
 import { register, login, forgotPassword, resetPassword, googleAuth } from '../controllers/authControllerUser.js';
-import { registerOrganization, loginOrganization, forgotPasswordOrganization, resetPasswordOrganization } from '../controllers/authControllerOrganization.js'; // Import organization controller functions
-import passport from 'passport';
+import { registerOrganization, loginOrganization, forgotPasswordOrganization, resetPasswordOrganization } from '../controllers/authControllerOrganization.js';
 
 const router = express.Router();
 

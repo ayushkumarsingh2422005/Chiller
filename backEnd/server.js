@@ -5,10 +5,15 @@ import passport from 'passport';
 import session from 'express-session';
 import http from 'http';                   // Import HTTP for Socket.IO
 import connectDB from './config/db.js';
+
+// routes import
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js'; // Import notification routes
 import paymentRoute from './routes/paymentRoute.js';
+import organizationRoute from './routes/organizationRoute.js';
+import eventRoute from './routes/eventRoute.js';
+
 import cors from 'cors';
 import { initializeSocket } from './config/socket.js'; // Import Socket.IO config
 import multer from 'multer'; // Import Multer for file uploads
@@ -32,6 +37,7 @@ app.set('views', './views');
 // Middleware Setup
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Session middleware configuration
 app.use(session({
@@ -99,8 +105,10 @@ app.use((err, req, res, next) => {
 // Route definitions
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
-app.use('/api/notifications', notificationRoutes); // Add notification routes
-app.use('/api/payments', paymentRoute);
+app.use('/api/organization', organizationRoute);
+app.use('/api/notification', notificationRoutes); // Add notification routes
+app.use('/api/payment', paymentRoute);
+app.use('/api/event', eventRoute);
 
 // Test route
 app.get('/', (req, res) => {

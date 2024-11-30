@@ -50,8 +50,8 @@ export default function UserAuthPage(){
         try {
             const endpoint =
                 activeTab === 0
-                    ? `${import.meta.env.VITE_SERVER_URL}/api/auth/user/register`
-                    : `${import.meta.env.VITE_SERVER_URL}/api/auth/user/login`;
+                    ? `${import.meta.env.VITE_SERVER_URL}/auth/user/register`
+                    : `${import.meta.env.VITE_SERVER_URL}/auth/user/login`;
 
             const response = await fetch(endpoint, {
                 method: 'POST',
@@ -88,7 +88,7 @@ export default function UserAuthPage(){
     const handleGoogleSuccess = async (response) => {
         const googleToken = response.credential;
         try {
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/user/google-login`, {
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/user/google-login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

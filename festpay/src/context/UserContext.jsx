@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
                 return;
             }
 
-            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/user/data`, {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/user/data`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

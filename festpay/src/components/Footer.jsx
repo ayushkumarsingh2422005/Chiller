@@ -50,7 +50,7 @@ export default function Footer() {
               <li><a href="#" className="hover:underline">Home</a></li>
               <li><a href="#" className="hover:underline">About Us</a></li>
               <li><a href="#" className="hover:underline">Features</a></li>
-              <li><a href="#" className="hover:underline">Contact</a></li>
+              <li><a href="/contact-us" className="hover:underline">Contact</a></li>
               <li><a href="#" className="hover:underline">FAQ</a></li>
             </ul>
           </div>
@@ -102,7 +102,7 @@ export default function Footer() {
               Email : ayush2422005@gmail.com
             </div> <br />
             <div className="text-sm">
-            {import.meta.env.VITE_AGENCY_NAME}, 123 Main St, City, State, 12345
+              {import.meta.env.VITE_AGENCY_NAME}, 123 Main St, City, State, 12345
             </div><br />
             <img src={currentlocation} alt="" className="w-full" />
           </div>

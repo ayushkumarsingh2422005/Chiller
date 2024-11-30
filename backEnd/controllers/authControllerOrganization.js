@@ -1,9 +1,10 @@
 // import Organization from '../models/Organization.js';
-import Orginization from '../models/Orginization.js';
+import Organization from '../models/Organization.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 import nodemailer from 'nodemailer';
+import { generateToken } from '../utils/jwtUtils.js';
 
 // Helper function to configure nodemailer transport for email notifications
 const transporter = nodemailer.createTransport({
@@ -19,7 +20,7 @@ export const registerOrganization = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-    const { name, email, password, description, contactPerson, phoneNumber } = req.body;
+    const { name, email, password, phone } = req.body;
 
     try {
         // Check if the organization already exists
@@ -35,15 +36,13 @@ export const registerOrganization = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            description,
-            contactPerson,
-            phoneNumber,
+            phone
         });
         await organization.save();
 
         // Generate JWT token for the organization
-        const payload = { organizationId: organization._id };
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const payload = { organizationId: organization._id, type: "organization" };
+        const token = generateToken(payload, "7d");
 
         // Respond with the generated token
         res.status(201).json({ token });
@@ -70,8 +69,8 @@ export const loginOrganization = async (req, res) => {
         if (!isMatch) return res.status(400).json({ msg: 'Invalid email or password' });
 
         // Generate JWT token for the organization
-        const payload = { organizationId: organization._id };
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const payload = { organizationId: organization._id, type: 'organization' };
+        const token = generateToken(payload, "7d");
 
         // Respond with the generated token
         res.json({ token });

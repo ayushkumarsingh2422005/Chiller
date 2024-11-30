@@ -1,12 +1,11 @@
 import React from 'react'
 import { TopBar } from '../../components'
 
-export default function EditEvent() {
+export default function OrganizationProfile() {
   return (
     <>
-      <TopBar />
       <div className='pt-20'>
-        Edit Event
+        Org search
       </div>
     </>
   )

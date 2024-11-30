@@ -40,3 +40,82 @@ export const getProfile = async (req, res) => {
     res.status(500).send('Server error');
   }
 }
+
+export const updateGender = async (req, res) => {
+  try {
+    const { gender } = req.body;
+    if (!gender) {
+      return res.status(400).json({ message: "Gender is required." });
+    }
+    req.user.gender = gender;
+    await req.user.save();
+    res.status(200).json({ message: "Gender updated successfully.", user: req.user });
+  } catch (error) {
+    console.error("Error updating gender:", error);
+    res.status(500).json({ message: "Failed to update gender.", error: error.message });
+  }
+};
+
+export const updatePhone = async (req, res) => {
+  try {
+    const { phone } = req.body;
+    if (!phone) {
+      return res.status(400).json({ message: "Phone number is required." });
+    }
+    req.user.phone = phone;
+    await req.user.save();
+    res.status(200).json({ message: "Phone number updated successfully.", user: req.user });
+  } catch (error) {
+    console.error("Error updating phone number:", error);
+    res.status(500).json({ message: "Failed to update phone number.", error: error.message });
+  }
+}
+
+export const updateCollege = async (req, res) => {
+  try {
+    const { college } = req.body;
+    // console.log(college)
+    if (!college) {
+      return res.status(400).json({ message: "Collage name is required." });
+    }
+    req.user.college = college;
+    await req.user.save();
+    res.status(200).json({ message: "Collage updated successfully.", user: req.user });
+  } catch (error) {
+    console.error("Error updating collage:", error);
+    res.status(500).json({ message: "Failed to update collage.", error: error.message });
+  }
+}
+
+
+export const updateRegistrationNumber = async (req, res) => {
+  try {
+    const { registrationNumber } = req.body;
+    if (!registrationNumber) {
+      return res.status(400).json({ message: "Registration number is required." });
+    }
+    req.user.registrationNumber = registrationNumber;
+    await req.user.save();
+    res.status(200).json({ message: "Registration number updated successfully.", user: req.user });
+  } catch (error) {
+    console.error("Error updating registration number:", error);
+    res.status(500).json({ message: "Failed to update registration number.", error: error.message });
+  }
+}
+
+
+export const updateProgramBranch = async (req, res) => {
+  try {
+    const { program, branch } = req.body;
+    if (!program && !branch) {
+      return res.status(400).json({ message: "Program and branch are required." });
+    }
+    req.user.program = program;
+    req.user.branch = branch;
+    await req.user.save();
+    res.status(200).json({ message: "Program and branch updated successfully.", user: req.user });
+  } catch (error) {
+    console.error("Error updating program and branch:", error);
+    res.status(500).json({ message: "Failed to update program and branch.", error: error.message });
+  }
+}

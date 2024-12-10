@@ -21,10 +21,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import EventIcon from '@mui/icons-material/Event';
 import { useTheme } from '@mui/material/styles';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
-
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+import Slider from "react-slick";
 
 const dummyAds = [
   {
@@ -51,7 +48,6 @@ export default function Clubs() {
   const [search, setSearch] = useState('');
   const [error, setError] = useState(null);
   const theme = useTheme();
-  const [activeStep, setActiveStep] = useState(0);
 
   const fetchOrganizations = async () => {
     try {
@@ -86,27 +82,60 @@ export default function Clubs() {
     navigate(`/clubs/${orgId}`);
   };
 
-  const handleStepChange = (step) => {
-    setActiveStep(step);
-  };
+  const AdSection = ({ isMobile }) => {
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 4000,
+      arrows: false,
+    };
 
-  const AdSection = ({ isMobile }) => (
-    <Box>
-      <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
-        Sponsored
-      </Typography>
-      {isMobile ? (
-        <Paper elevation={0} sx={{ bgcolor: 'background.paper', overflow: 'hidden' }}>
-          <AutoPlaySwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={activeStep}
-            onChangeIndex={handleStepChange}
-            enableMouseEvents
-            interval={4000}
-          >
+    return (
+      <Box>
+        <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
+          Sponsored
+        </Typography>
+        {isMobile ? (
+          <Paper elevation={0} sx={{ bgcolor: 'background.paper', overflow: 'hidden' }}>
+            <Slider {...settings}>
+              {dummyAds.map((ad, index) => (
+                <Box
+                  key={index}
+                  component="a"
+                  href={ad.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    display: 'block',
+                    overflow: 'hidden',
+                    textDecoration: 'none',
+                    position: 'relative',
+                    '&:hover': { opacity: 0.9 },
+                  }}
+                >
+                  <img
+                    src={ad.image}
+                    alt={ad.title}
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      display: 'block',
+                    }}
+                  />
+                </Box>
+              ))}
+            </Slider>
+          </Paper>
+        ) : (
+          <Stack spacing={2}>
             {dummyAds.map((ad, index) => (
-              <Box
+              <Paper
                 key={index}
+                elevation={0}
                 component="a"
                 href={ad.link}
                 target="_blank"
@@ -114,9 +143,8 @@ export default function Clubs() {
                 sx={{
                   display: 'block',
                   overflow: 'hidden',
-                  textDecoration: 'none',
-                  position: 'relative',
                   '&:hover': { opacity: 0.9 },
+                  textDecoration: 'none'
                 }}
               >
                 <img
@@ -125,65 +153,16 @@ export default function Clubs() {
                   style={{
                     width: '100%',
                     height: 'auto',
-                    display: 'block',
+                    display: 'block'
                   }}
                 />
-              </Box>
+              </Paper>
             ))}
-          </AutoPlaySwipeableViews>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              p: 1,
-              gap: 1
-            }}
-          >
-            {dummyAds.map((_, index) => (
-              <Box
-                key={index}
-                sx={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  bgcolor: index === activeStep ? 'primary.main' : 'grey.300',
-                }}
-              />
-            ))}
-          </Box>
-        </Paper>
-      ) : (
-        <Stack spacing={2}>
-          {dummyAds.map((ad, index) => (
-            <Paper
-              key={index}
-              elevation={0}
-              component="a"
-              href={ad.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{
-                display: 'block',
-                overflow: 'hidden',
-                '&:hover': { opacity: 0.9 },
-                textDecoration: 'none'
-              }}
-            >
-              <img
-                src={ad.image}
-                alt={ad.title}
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  display: 'block'
-                }}
-              />
-            </Paper>
-          ))}
-        </Stack>
-      )}
-    </Box>
-  );
+          </Stack>
+        )}
+      </Box>
+    );
+  };
 
   return (
     <>

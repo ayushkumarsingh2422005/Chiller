@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -13,7 +13,9 @@ import {
   Stack,
   Switch,
   FormControlLabel,
-  Divider
+  Divider,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import {
@@ -30,8 +32,14 @@ import {
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useDropzone } from "react-dropzone";
+import { useContext } from 'react';
+import { OrganizationContext } from '../../context/OrganizationContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddEvent() {
+  const { isOrganizationAvailable } = useContext(OrganizationContext);
+  const navigate = useNavigate();
+
   const [eventDetails, setEventDetails] = useState({
     name: "",
     description: "",
@@ -56,6 +64,44 @@ export default function AddEvent() {
   });
 
   const [imagePreview, setImagePreview] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [toast, setToast] = useState({ open: false, message: '', severity: 'success' });
+
+  useEffect(() => {
+    if (!isOrganizationAvailable) {
+      showToast("Please complete your organization profile first", "error");
+      navigate('/organization/account');
+    }
+  }, [isOrganizationAvailable]);
+
+  const showToast = (message, severity = 'success') => {
+    setToast({ open: true, message, severity });
+  };
+
+  const handleCloseToast = () => setToast({ ...toast, open: false });
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!eventDetails.name.trim()) newErrors.name = "Event name is required";
+    if (!eventDetails.description.trim()) newErrors.description = "Event description is required";
+    if (!eventDetails.date) newErrors.date = "Event date is required";
+    if (!eventDetails.location.trim()) newErrors.location = "Location is required";
+    if (!eventDetails.bannerImage) newErrors.bannerImage = "Banner image is required";
+    
+    if (eventDetails.registrationRequired) {
+      if (!eventDetails.registrationDeadline) {
+        newErrors.registrationDeadline = "Registration deadline is required";
+      }
+      if (!eventDetails.registrationFee && eventDetails.registrationFee !== 0) {
+        newErrors.registrationFee = "Registration fee is required";
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -93,40 +139,50 @@ export default function AddEvent() {
   };
 
   const handleSubmit = async () => {
+    if (!validateForm()) return;
+
+    setLoading(true);
     const formData = new FormData();
-  
+    
     Object.keys(eventDetails).forEach((key) => {
       if (key === "resources" || key === "socialLinks") {
         formData.append(key, JSON.stringify(eventDetails[key]));
       } else if (key === "bannerImage" && eventDetails.bannerImage) {
         formData.append(key, eventDetails.bannerImage);
       } else {
-        formData.append(key, eventDetails[key] || ""); // Handle null/undefined values
+        formData.append(key, eventDetails[key] || "");
       }
     });
-  
-    // Log all key-value pairs for debugging
-    console.log("FormData before submission:");
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, key === "bannerImage" ? value.name : value); // Log file name instead of file object
-    }
-  
+
     try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
       const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/event/add`, {
         method: "POST",
-        body: formData.entries(),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
       });
-  
+
+      const data = await response.json();
+
       if (response.ok) {
-        alert("Event created successfully!");
+        showToast("Event created successfully!");
+        navigate('/organization/all-event');
       } else {
-        console.error("Failed to create event:", await response.text());
+        showToast(data.message || "Failed to create event", "error");
       }
     } catch (error) {
       console.error("Error:", error);
+      showToast(error.message || "An error occurred while creating the event", "error");
+    } finally {
+      setLoading(false);
     }
   };
-  
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -213,7 +269,17 @@ export default function AddEvent() {
             <MenuItem value="private">Private</MenuItem>
           </Select>
         </FormControl>
-        <Box {...getRootProps()} sx={{ border: "2px dashed grey", p: 3, textAlign: "center", cursor: "pointer" }}>
+        <Box
+          {...getRootProps()}
+          sx={{
+            border: "2px dashed grey",
+            p: 3,
+            textAlign: "center",
+            cursor: "pointer",
+            backgroundColor: "#f9f9f9",
+            ":hover": { backgroundColor: "#eaeaea" },
+          }}
+        >
           <input {...getInputProps()} />
           {imagePreview ? (
             <img
@@ -222,9 +288,12 @@ export default function AddEvent() {
               style={{ width: "100%", borderRadius: 10 }}
             />
           ) : (
-            <Typography variant="body2">Drag & Drop an image or click to upload*</Typography>
+            <Typography variant="body2" sx={{ color: "#888" }}>
+              Drag & Drop an image or click to upload*
+            </Typography>
           )}
         </Box>
+
         <Box>
           <Typography variant="h6">Resources</Typography>
           {eventDetails.resources.map((resource, index) => (
@@ -257,39 +326,53 @@ export default function AddEvent() {
               <TextField
                 label={key.charAt(0).toUpperCase() + key.slice(1)}
                 name={key}
+                // placeholder={`Enter ${key} URL`}
                 value={eventDetails.socialLinks[key]}
                 onChange={(e) =>
                   setEventDetails((prev) => ({
                     ...prev,
-                    socialLinks: {
-                      ...prev.socialLinks,
-                      [key]: e.target.value,
-                    },
+                    socialLinks: { ...prev.socialLinks, [key]: e.target.value },
                   }))
                 }
                 fullWidth
                 InputProps={{
-                  startAdornment:
-                    {
-                      facebook: <Facebook />,
-                      instagram: <Instagram />,
-                      twitter: <Twitter />,
-                      linkedin: <LinkedIn />,
-                      youtube: <YouTube />,
-                    }[key],
+                  startAdornment: {
+                    facebook: <Facebook />,
+                    instagram: <Instagram />,
+                    twitter: <Twitter />,
+                    linkedin: <LinkedIn />,
+                    youtube: <YouTube />,
+                  }[key],
                 }}
               />
             </Grid>
           ))}
         </Grid>
+        <TextField
+          label="Event Name*"
+          name="name"
+          value={eventDetails.name}
+          onChange={handleInputChange}
+          fullWidth
+          error={!!errors.name}
+          helperText={errors.name}
+        />
+
         <Button
           variant="contained"
           startIcon={<CloudUpload />}
           onClick={handleSubmit}
+          disabled={loading} // Disable button when loading
         >
-          Submit Event
+          {loading ? "Submitting..." : "Submit Event"}
         </Button>
+
       </Stack>
+      <Snackbar open={toast.open} autoHideDuration={6000} onClose={handleCloseToast}>
+        <Alert onClose={handleCloseToast} severity={toast.severity} sx={{ width: '100%' }}>
+          {toast.message}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }

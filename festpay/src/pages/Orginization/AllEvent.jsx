@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { OrganizationContext } from "../../context/OrganizationContext";
 import {
   Box,
   Card,
@@ -20,49 +21,16 @@ import {
   ListItem,
   ListItemText,
   Divider,
+  CircularProgress,
+  Chip,
 } from "@mui/material";
 import { LocationOn, DateRange, People, Search, FilterList } from "@mui/icons-material";
-
-const dummyEvents = [
-  {
-    id: 1,
-    name: "Music Festival",
-    description: "Enjoy a night of great music and fun.",
-    date: "2024-12-01",
-    location: "Central Park, NY",
-    maxAttendees: 500,
-    category: "Music",
-    status: "active", // active or inactive
-    visibility: "public", // public or private
-    bannerImage: "https://via.placeholder.com/300x200",
-  },
-  {
-    id: 2,
-    name: "Tech Meetup",
-    description: "Discuss the latest in technology and networking.",
-    date: "2024-12-10",
-    location: "Silicon Valley, CA",
-    maxAttendees: 300,
-    category: "Technology",
-    status: "inactive",
-    visibility: "private",
-    bannerImage: "https://via.placeholder.com/300x200",
-  },
-  {
-    id: 3,
-    name: "Art Exhibition",
-    description: "A showcase of local artists' work.",
-    date: "2024-12-15",
-    location: "Downtown Gallery, LA",
-    maxAttendees: 200,
-    category: "Art",
-    status: "active",
-    visibility: "public",
-    bannerImage: "https://via.placeholder.com/300x200",
-  },
-];
+import { useNavigate } from 'react-router-dom';
 
 export default function AllEvent() {
+  const { organizationData } = useContext(OrganizationContext);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -70,6 +38,34 @@ export default function AllEvent() {
   const [selectedDate, setSelectedDate] = useState("");
 
   const [openFilter, setOpenFilter] = useState(false); // Drawer state
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/event/organization`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch events');
+      }
+
+      const data = await response.json();
+      setEvents(data.events);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -91,19 +87,14 @@ export default function AllEvent() {
     setSelectedDate(e.target.value);
   };
 
-  const filteredEvents = dummyEvents.filter((event) => {
+  const filteredEvents = events.filter((event) => {
     return (
-      // Filter by search
       (event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         event.description.toLowerCase().includes(searchQuery.toLowerCase())) &&
-      // Filter by category
       (selectedCategory ? event.category === selectedCategory : true) &&
-      // Filter by status
       (selectedStatus ? event.status === selectedStatus : true) &&
-      // Filter by visibility
       (selectedVisibility ? event.visibility === selectedVisibility : true) &&
-      // Filter by date
-      (selectedDate ? event.date === selectedDate : true)
+      (selectedDate ? new Date(event.date).toISOString().split('T')[0] === selectedDate : true)
     );
   });
 
@@ -225,47 +216,83 @@ export default function AllEvent() {
 
       {/* Event Cards */}
       <Grid container spacing={3}>
-        {filteredEvents.map((event) => (
-          <Grid item xs={12} sm={6} md={4} key={event.id}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="200"
-                image={event.bannerImage}
-                alt={`${event.name} banner`}
-              />
-              <CardContent>
-                <Typography variant="h5" gutterBottom>
-                  {event.name}
-                </Typography>
-                <Stack direction="row" alignItems="center" spacing={1} mb={1}>
-                  <IconButton size="small" disabled>
-                    <DateRange />
-                  </IconButton>
-                  <Typography>{event.date}</Typography>
-                </Stack>
-                <Stack direction="row" alignItems="center" spacing={1} mb={1}>
-                  <IconButton size="small" disabled>
-                    <LocationOn />
-                  </IconButton>
-                  <Typography>{event.location}</Typography>
-                </Stack>
-                <Stack direction="row" alignItems="center" spacing={1} mb={2}>
-                  <IconButton size="small" disabled>
-                    <People />
-                  </IconButton>
-                  <Typography>{`Max Attendees: ${event.maxAttendees}`}</Typography>
-                </Stack>
-                <Typography variant="body2" color="textSecondary" paragraph>
-                  {event.description}
-                </Typography>
-                <Button variant="contained" color="primary" fullWidth>
-                  View Details
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%', mt: 4 }}>
+            <CircularProgress />
+          </Box>
+        ) : filteredEvents.length === 0 ? (
+          <Box sx={{ width: '100%', textAlign: 'center', mt: 4 }}>
+            <Typography variant="h6" color="textSecondary">
+              No events found
+            </Typography>
+          </Box>
+        ) : (
+          filteredEvents.map((event) => (
+            <Grid item xs={12} sm={6} md={4} key={event._id}>
+              <Card>
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={event.bannerImage ? 
+                    `${import.meta.env.VITE_IMAGE_URL}/${event.bannerImage}` : 
+                    "https://via.placeholder.com/300x200"}
+                  alt={`${event.name} banner`}
+                />
+                <CardContent>
+                  <Typography variant="h5" gutterBottom>
+                    {event.name}
+                  </Typography>
+                  <Stack direction="row" alignItems="center" spacing={1} mb={1}>
+                    <IconButton size="small" disabled>
+                      <DateRange />
+                    </IconButton>
+                    <Typography>{new Date(event.date).toLocaleDateString()}</Typography>
+                  </Stack>
+                  <Stack direction="row" alignItems="center" spacing={1} mb={1}>
+                    <IconButton size="small" disabled>
+                      <LocationOn />
+                    </IconButton>
+                    <Typography>{event.location}</Typography>
+                  </Stack>
+                  <Stack direction="row" alignItems="center" spacing={1} mb={2}>
+                    <IconButton size="small" disabled>
+                      <People />
+                    </IconButton>
+                    <Typography>
+                      {event.maxAttendees === -1 
+                        ? 'Unlimited Attendees' 
+                        : `Max Attendees: ${event.maxAttendees}`}
+                    </Typography>
+                  </Stack>
+                  <Typography variant="body2" color="textSecondary" paragraph>
+                    {event.description}
+                  </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+                    <Chip 
+                      label={event.status} 
+                      color={event.status === 'active' ? 'success' : 'default'}
+                      size="small"
+                    />
+                    <Chip 
+                      label={event.visibility} 
+                      color={event.visibility === 'public' ? 'primary' : 'secondary'}
+                      size="small"
+                    />
+                  </Box>
+                  <Button 
+                    variant="contained" 
+                    color="primary" 
+                    fullWidth 
+                    sx={{ mt: 2 }}
+                    onClick={() => navigate(`/organization/event/${event._id}`)}
+                  >
+                    View Details
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))
+        )}
       </Grid>
     </Box>
   );

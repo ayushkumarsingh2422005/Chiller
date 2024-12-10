@@ -1,127 +1,106 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { TextField, Button, RadioGroup, FormControlLabel, Radio, FormControl, CircularProgress, Tabs, Tab, Paper, Dialog, DialogActions, DialogContent, DialogTitle, Typography, Alert, IconButton, InputAdornment, Box } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import React, { useState, useContext, useEffect } from 'react';
+import { TextField, Button, Tabs, Tab, Paper, Dialog, DialogActions, DialogContent, DialogTitle, Typography, Alert, CircularProgress, Box, InputAdornment, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
 import { TopBar } from '../../components';
-import { UserContext } from '../../context/UserContext';
-import userAuthImg from '../../assets/images/user-auth.svg'; // You'll need to add this image
+import organizationImg from '../../assets/images/organization.svg';
+import { OrganizationContext } from '../../context/OrganizationContext';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-export default function UserAuthPage() {
-    const {userData, isUserAvailable} = useContext(UserContext);
-    console.log(userData, isUserAvailable);
+export default function OrgAuthPage() {
+    const { organizationData, isOrganizationAvailable, fetchOrganizationData } = useContext(OrganizationContext);
     const [activeTab, setActiveTab] = useState(0); // 0: Register, 1: Login
-    const [userDetails, setUserDetails] = useState({
+    const [orgDetails, setOrgDetails] = useState({
         name: '',
         email: '',
         password: '',
-        gender: 'Prefer Not to Choose',
+        phone: '',
     });
     const [loading, setLoading] = useState(false);
-    const [passwordVisible, setPasswordVisible] = useState(false);
-    const [welcomeModalOpen, setWelcomeModalOpen] = useState(false);
-    const [profileCompleteModalOpen, setProfileCompleteModalOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [welcomeModalOpen, setWelcomeModalOpen] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
-    const togglePasswordVisibility = () => {
-        setPasswordVisible((prev) => !prev);
-    };
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate('/organization/dashboard');
+        }
+    }, []);
 
     const handleTabChange = (event, newTab) => {
         setActiveTab(newTab);
     };
 
     const handleInputChange = (e) => {
-        setUserDetails({
-            ...userDetails,
+        setOrgDetails({
+            ...orgDetails,
             [e.target.name]: e.target.value,
         });
     };
 
+    const validateForm = () => {
+        if (!orgDetails.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+            setErrorMessage('Please enter a valid email address.');
+            return false;
+        }
+        if (orgDetails.password.length < 6) {
+            setErrorMessage('Password must be at least 6 characters long.');
+            return false;
+        }
+        if (activeTab === 0 && !orgDetails.phone.match(/^\d{10}$/)) {
+            setErrorMessage('Please enter a valid 10-digit phone number.');
+            return false;
+        }
+        return true;
+    };
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+        if (!validateForm()) return;
+        
         setLoading(true);
         setErrorMessage(null);
 
         try {
-            const endpoint =
-                activeTab === 0
-                    ? `${import.meta.env.VITE_SERVER_URL}/auth/user/register`
-                    : `${import.meta.env.VITE_SERVER_URL}/auth/user/login`;
+            const endpoint = activeTab === 0
+                ? `${import.meta.env.VITE_SERVER_URL}/auth/organization/register`
+                : `${import.meta.env.VITE_SERVER_URL}/auth/organization/login`;
 
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(userDetails),
+                body: JSON.stringify(orgDetails),
             });
 
             const data = await response.json();
 
             if (response.ok) {
                 localStorage.setItem('token', data.token);
-
-                if (activeTab === 0) {
-                    setWelcomeModalOpen(true);
-                } else {
-                    navigate('/user/dashboard');
-                }
+                await fetchOrganizationData();
+                navigate('/organization/dashboard');
             } else {
-                if (activeTab === 1) {
-                    setErrorMessage('Invalid email or password.');
-                } else if (response.status === 400) {
-                    setProfileCompleteModalOpen(true);
-                }
+                setErrorMessage(data.message || 'Authentication failed. Please try again.');
             }
         } catch (error) {
+            console.error('Authentication error:', error);
             setErrorMessage('An error occurred. Please try again.');
         } finally {
             setLoading(false);
         }
     };
 
-    const handleGoogleSuccess = async (response) => {
-        const googleToken = response.credential;
-        try {
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/user/google-login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ token: googleToken }),
-            });
-
-            const data = await res.json();
-            localStorage.setItem('token', data.token);
-            // console.log(data);
-
-            if (res.ok) {
-                navigate('/user/dashboard');
-            } else {
-                console.error('Error during Google Login:', data.message);
-            }
-        } catch (error) {
-            console.error('Google Login API Error:', error);
-        }
-    };
-
-    const handleGoogleFailure = (error) => {
-        console.error('Google Login Error:', error);
-    };
-
     const closeWelcomeModal = () => {
         setWelcomeModalOpen(false);
-        navigate('/complete-profile');
+        navigate('/organization/complete-profile');
     };
 
-    useEffect(()=>{
-        if (localStorage.getItem('token')) {
-            navigate('/user/dashboard');
-        }
-    },[]);
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
         <>
@@ -130,26 +109,24 @@ export default function UserAuthPage() {
                 <div className="max-w-7xl mx-auto">
                     <Paper elevation={3} className="rounded-xl overflow-hidden">
                         <div className="flex flex-col md:flex-row">
-                            {/* Left Side - Image and Text */}
                             <div className="w-full md:w-1/2 bg-gradient-to-br from-blue-600 to-indigo-700 p-8 flex flex-col justify-center items-center text-white">
                                 <img 
-                                    src={userAuthImg} 
-                                    alt="User Authentication" 
+                                    src={organizationImg} 
+                                    alt="Organization" 
                                     className="w-3/4 max-w-md mb-8 animate-float"
                                 />
                                 <div className="text-center">
                                     <h2 className="text-3xl font-bold mb-4">
-                                        {activeTab === 0 ? 'Create Your Account' : 'Welcome Back'}
+                                        {activeTab === 0 ? 'Join Our Platform' : 'Welcome Back'}
                                     </h2>
                                     <p className="text-lg text-blue-100">
                                         {activeTab === 0 
-                                            ? 'Join our community to discover and participate in amazing events.'
-                                            : 'Sign in to access your account and explore events.'}
+                                            ? 'Create an account to showcase your events and connect with participants.'
+                                            : 'Sign in to manage your events and organization profile.'}
                                     </p>
                                 </div>
                             </div>
 
-                            {/* Right Side - Auth Form */}
                             <div className="w-full md:w-1/2 p-8">
                                 <Paper elevation={0} className="mb-6">
                                     <Tabs 
@@ -174,9 +151,9 @@ export default function UserAuthPage() {
                                     {activeTab === 0 && (
                                         <div className="space-y-4">
                                             <TextField
-                                                label="Name"
+                                                label="Organization Name"
                                                 name="name"
-                                                value={userDetails.name}
+                                                value={orgDetails.name}
                                                 onChange={handleInputChange}
                                                 fullWidth
                                                 required
@@ -192,44 +169,53 @@ export default function UserAuthPage() {
                                             <TextField
                                                 label="Email"
                                                 name="email"
-                                                value={userDetails.email}
+                                                type="email"
+                                                value={orgDetails.email}
                                                 onChange={handleInputChange}
                                                 fullWidth
                                                 required
                                                 variant="outlined"
                                             />
                                             <TextField
-                                                label="Password"
-                                                name="password"
-                                                type={passwordVisible ? 'text' : 'password'}
-                                                value={userDetails.password}
+                                                label="Phone Number"
+                                                name="phone"
+                                                type="tel"
+                                                value={orgDetails.phone}
                                                 onChange={handleInputChange}
                                                 fullWidth
                                                 required
                                                 variant="outlined"
+                                                placeholder="10-digit phone number"
+                                                inputProps={{
+                                                    maxLength: 10,
+                                                    pattern: '[0-9]*'
+                                                }}
+                                                helperText="Enter 10-digit phone number without spaces or special characters"
+                                            />
+                                            <TextField
+                                                label="Password"
+                                                name="password"
+                                                type={showPassword ? 'text' : 'password'}
+                                                value={orgDetails.password}
+                                                onChange={handleInputChange}
+                                                fullWidth
+                                                required
+                                                variant="outlined"
+                                                helperText="Password must be at least 6 characters long"
                                                 InputProps={{
                                                     endAdornment: (
                                                         <InputAdornment position="end">
-                                                            <IconButton onClick={togglePasswordVisibility}>
-                                                                {passwordVisible ? <Visibility /> : <VisibilityOff />}
+                                                            <IconButton
+                                                                aria-label="toggle password visibility"
+                                                                onClick={handleTogglePasswordVisibility}
+                                                                edge="end"
+                                                            >
+                                                                {showPassword ? <VisibilityOff /> : <Visibility />}
                                                             </IconButton>
                                                         </InputAdornment>
                                                     ),
                                                 }}
                                             />
-                                            <FormControl component="fieldset">
-                                                <RadioGroup
-                                                    row
-                                                    name="gender"
-                                                    value={userDetails.gender}
-                                                    onChange={handleInputChange}
-                                                >
-                                                    <FormControlLabel value="Male" control={<Radio sx={{ '&.Mui-checked': { color: '#4F46E5' } }} />} label="Male" />
-                                                    <FormControlLabel value="Female" control={<Radio sx={{ '&.Mui-checked': { color: '#4F46E5' } }} />} label="Female" />
-                                                    <FormControlLabel value="Prefer Not to Choose" control={<Radio sx={{ '&.Mui-checked': { color: '#4F46E5' } }} />} label="Prefer Not to Choose" />
-                                                </RadioGroup>
-                                            </FormControl>
-
                                             <Button
                                                 variant="contained"
                                                 type="submit"
@@ -245,14 +231,6 @@ export default function UserAuthPage() {
                                             >
                                                 {loading ? <CircularProgress size={24} /> : 'Register'}
                                             </Button>
-
-                                            <div className="text-center">
-                                                <GoogleLogin
-                                                    onSuccess={handleGoogleSuccess}
-                                                    onError={handleGoogleFailure}
-                                                    useOneTap
-                                                />
-                                            </div>
                                         </div>
                                     )}
 
@@ -261,7 +239,8 @@ export default function UserAuthPage() {
                                             <TextField
                                                 label="Email"
                                                 name="email"
-                                                value={userDetails.email}
+                                                type="email"
+                                                value={orgDetails.email}
                                                 onChange={handleInputChange}
                                                 fullWidth
                                                 required
@@ -269,9 +248,9 @@ export default function UserAuthPage() {
                                             />
                                             <TextField
                                                 label="Password"
-                                                type={passwordVisible ? 'text' : 'password'}
                                                 name="password"
-                                                value={userDetails.password}
+                                                type={showPassword ? 'text' : 'password'}
+                                                value={orgDetails.password}
                                                 onChange={handleInputChange}
                                                 fullWidth
                                                 required
@@ -279,14 +258,17 @@ export default function UserAuthPage() {
                                                 InputProps={{
                                                     endAdornment: (
                                                         <InputAdornment position="end">
-                                                            <IconButton onClick={togglePasswordVisibility}>
-                                                                {passwordVisible ? <Visibility /> : <VisibilityOff />}
+                                                            <IconButton
+                                                                aria-label="toggle password visibility"
+                                                                onClick={handleTogglePasswordVisibility}
+                                                                edge="end"
+                                                            >
+                                                                {showPassword ? <VisibilityOff /> : <Visibility />}
                                                             </IconButton>
                                                         </InputAdornment>
                                                     ),
                                                 }}
                                             />
-
                                             <Button
                                                 variant="contained"
                                                 type="submit"
@@ -302,14 +284,6 @@ export default function UserAuthPage() {
                                             >
                                                 {loading ? <CircularProgress size={24} /> : 'Login'}
                                             </Button>
-
-                                            <div className="text-center">
-                                                <GoogleLogin
-                                                    onSuccess={handleGoogleSuccess}
-                                                    onError={handleGoogleFailure}
-                                                    useOneTap
-                                                />
-                                            </div>
                                         </div>
                                     )}
                                 </form>
@@ -330,7 +304,6 @@ export default function UserAuthPage() {
                     </Paper>
                 </div>
 
-                {/* Welcome Modal */}
                 <Dialog 
                     open={welcomeModalOpen}
                     PaperProps={{
@@ -357,4 +330,4 @@ export default function UserAuthPage() {
             </div>
         </>
     );
-}
+} 

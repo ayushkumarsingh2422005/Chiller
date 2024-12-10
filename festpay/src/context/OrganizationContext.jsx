@@ -1,23 +1,23 @@
 import React, { createContext, useEffect, useState } from 'react';
 
-export const UserContext = createContext();
+export const OrganizationContext = createContext();
 
-export const UserProvider = ({ children }) => {
-    const [userData, setUserData] = useState(null);
+export const OrganizationProvider = ({ children }) => {
+    const [organizationData, setOrganizationData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isUserAvailable, setIsUserAvailable] = useState(false);
+    const [isOrganizationAvailable, setIsOrganizationAvailable] = useState(false);
 
-    const fetchUserData = async () => {
+    const fetchOrganizationData = async () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
             if (!token) {
-                setIsUserAvailable(false);
+                setIsOrganizationAvailable(false);
                 setLoading(false);
                 return;
             }
 
-            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/user/data`, {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/organization/data`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,8 +27,8 @@ export const UserProvider = ({ children }) => {
 
             if (!response.ok) {
                 localStorage.removeItem('token');
-                setIsUserAvailable(false);
-                setUserData(null);
+                setIsOrganizationAvailable(false);
+                setOrganizationData(null);
                 setLoading(false);
                 return;
             }
@@ -37,18 +37,18 @@ export const UserProvider = ({ children }) => {
             const data = text ? JSON.parse(text) : null;
 
             if (data) {
-                setUserData(data);
-                setIsUserAvailable(true);
+                setOrganizationData(data);
+                setIsOrganizationAvailable(true);
             } else {
                 localStorage.removeItem('token');
-                setIsUserAvailable(false);
-                setUserData(null);
+                setIsOrganizationAvailable(false);
+                setOrganizationData(null);
             }
         } catch (error) {
-            console.error('Error fetching user data:', error);
+            console.error('Error fetching organization data:', error);
             localStorage.removeItem('token');
-            setIsUserAvailable(false);
-            setUserData(null);
+            setIsOrganizationAvailable(false);
+            setOrganizationData(null);
         } finally {
             setLoading(false);
         }
@@ -56,27 +56,27 @@ export const UserProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
-        setUserData(null);
-        setIsUserAvailable(false);
+        setOrganizationData(null);
+        setIsOrganizationAvailable(false);
     };
 
     useEffect(() => {
-        fetchUserData();
+        fetchOrganizationData();
     }, []);
 
     const value = {
-        userData,
+        organizationData,
         loading,
-        isUserAvailable,
-        fetchUserData,
+        isOrganizationAvailable,
+        fetchOrganizationData,
         logout
     };
 
     return (
-        <UserContext.Provider value={value}>
+        <OrganizationContext.Provider value={value}>
             {children}
-        </UserContext.Provider>
+        </OrganizationContext.Provider>
     );
 };
 
-export default UserProvider;
+export default OrganizationProvider; 

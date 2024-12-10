@@ -19,7 +19,8 @@ import Page404 from "./General/Page404"
 import PaymentLink from "./Orginization/PaymentLink"
 import BookMark from "./User/BookMark"
 import AboutUs from "./General/AboutUs"
-import OrgRegistrationLoginPage from "./Orginization/OrgRegistrationLoginPage"
+// import OrgRegistrationLoginPage from "./Orginization/OrgRegistrationLoginPage"
+import OrgAuthPage from "./Orginization/OrgAuthPage"
 import OrginizationTransaction from "./Orginization/OrganizationTransaction"
 import RefundPolicy from "./General/RefundPolicy"
 import AddEvent from "./Orginization/AddEvent"
@@ -27,6 +28,10 @@ import UserTransaction from "./User/UserTransaction"
 import ReturnPolicy from "./General/ReturnPolicy"
 import EventDetail from "./General/EventDetail"
 import MakeAccount from "./General/MakeAccount"
+import Dashboard from "./General/Dashboard"
+import Clubs from "./General/Clubs"
+import ClubDetails from "./General/ClubDetails"
+import EventDetails from "./Orginization/EventDetails"
 export {
     Landing,
     UserAuthPage,
@@ -49,12 +54,16 @@ export {
     BookMark,
     PaymentLink,
     AboutUs,
-    OrgRegistrationLoginPage,
+    OrgAuthPage,
     OrginizationTransaction,
     RefundPolicy,
     AddEvent,
     UserTransaction,
     ReturnPolicy,
     EventDetail,
-    MakeAccount
+    MakeAccount,
+    Dashboard,
+    Clubs,
+    ClubDetails,
+    EventDetails
 }

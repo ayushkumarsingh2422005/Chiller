@@ -1,0 +1,39 @@
+# Group 1: Allow all robots complete access
+User-agent: *
+Allow: /
+Disallow: /user/dashboard/
+Disallow: /organization/dashboard/
+Disallow: /user/auth
+Disallow: /organization/auth
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*?*  # Disallow URLs with query parameters
+
+# Crawl-delay
+Crawl-delay: 10
+
+# Sitemaps
+Sitemap: https://festpay.in/sitemap.xml
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 5
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 5
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 5
+
+# Block common bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: / 

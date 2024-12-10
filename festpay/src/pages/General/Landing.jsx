@@ -21,48 +21,70 @@ export default function Landing() {
 
 
 const FeaturesSection = () => {
+    const features = [
+        {
+            title: "Easy Registration",
+            description: "Simple and quick registration process for both students and organizations",
+            icon: "🎯"
+        },
+        {
+            title: "Secure Payments",
+            description: "Integrated payment system with complete transaction security",
+            icon: "🔒"
+        },
+        {
+            title: "Event Analytics",
+            description: "Detailed insights and analytics for event performance",
+            icon: "📊"
+        }
+    ];
+
     return (
-        <div className="bg-blue-800 text-white py-12 px-6" id='knowmore' style={{
+        <div className="bg-blue-800 text-white py-16 px-6" id='knowmore' style={{
             background: "radial-gradient(circle, #4992F2, #2A548C 80%)"
         }}>
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
                 {/* Left Side - Text */}
-                <div className="space-y-6">
-                    <h2 className="text-1xl sm:text-[30px] font-bold" style={{
+                <div className="space-y-8">
+                    <h2 className="text-2xl sm:text-[36px] font-bold leading-tight" style={{
                         fontFamily: 'Krona One',
                     }}>
                         Explore the powerful features that simplify event management and participation.
                     </h2>
-                    <p className="text-sm sm:text-lg text-blue-300 leading-relaxed">
+                    <p className="text-lg sm:text-xl text-blue-200 leading-relaxed">
                         Discover user-friendly tools for seamless student registration, effortless club event management, secure payment processing, and real-time participant tracking—all in one place.
                     </p>
                 </div>
 
-                {/* Right Side - Fascinating Content */}
-                <div className="gap-6 text-center flex items-center justify-center">
-                    something random
+                {/* Right Side - Feature Cards */}
+                <div className="grid grid-cols-1 gap-6">
+                    {features.map((feature, index) => (
+                        <div key={index} className="bg-white/10 backdrop-blur-lg rounded-xl p-6 hover:bg-white/20 transition-all duration-300">
+                            <div className="flex items-start gap-4">
+                                <span className="text-4xl">{feature.icon}</span>
+                                <div>
+                                    <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                                    <p className="text-blue-200">{feature.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-32 w-full max-w-7xl mx-auto">
-                <div>
-                    <h3 className="text-2xl sm:text-3xl font-bold">2K+</h3>
-                    <p className="text-sm sm:text-base text-blue-300">Total number of students who have registered on the platform.</p>
-                </div>
-                <div>
-                    <h3 className="text-2xl sm:text-3xl font-bold">70+</h3>
-                    <p className="text-sm sm:text-base text-blue-300">Organizations actively using the platform.</p>
-                </div>
-                <div>
-                    <h3 className="text-2xl sm:text-3xl font-bold">1.5K+</h3>
-                    <p className="text-sm sm:text-base text-blue-300">Total number of events successfully managed through the platform.</p>
-                </div>
-                <div>
-                    <h3 className="text-2xl sm:text-3xl font-bold">98.2%</h3>
-                    <p className="text-sm sm:text-base text-blue-300">
-                        Highlight high user satisfaction, showcasing positive feedback.
-                    </p>
-                </div>
+            {/* Stats section with improved styling */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mt-32 w-full max-w-7xl mx-auto">
+                {[
+                    { number: "2K+", text: "Total number of students registered" },
+                    { number: "70+", text: "Organizations actively using the platform" },
+                    { number: "1.5K+", text: "Events successfully managed" },
+                    { number: "98.2%", text: "User satisfaction rate" }
+                ].map((stat, index) => (
+                    <div key={index} className="text-center p-6 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300">
+                        <h3 className="text-3xl sm:text-4xl font-bold mb-3">{stat.number}</h3>
+                        <p className="text-sm sm:text-base text-blue-200">{stat.text}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
@@ -80,6 +102,7 @@ const HeroSection = () => {
                     // backgroundAttachment: 'fixed',
                 }}
             >
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/5"></div>
                 <div
                     style={{
                         width: '100%',
@@ -94,14 +117,16 @@ const HeroSection = () => {
                                 fontFamily: 'Krona One',
                             }}
                         >
-                            Effortless Event Management and Payments for <br />
+                            Effortless Event Management and Payments for{' '}
                             <span className="text-[#1F4EB4]">Students and Clubs.</span>
                         </span>{' '}
                         <br />
                         <span className="sm:text-xl text-sm font-bold">Seamless | Unified | Engagement</span>
                         <br />
                         <br className="sm:hidden" />
-                        <Button variant="contained">Get Started</Button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Link to={"/account"}>
+                            <Button variant="contained">Get Started</Button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        </Link>
                         <Link to={"/user/dashboard"}>
                             <Button color="secondary">Know More</Button>
                         </Link>

@@ -7,90 +7,98 @@ export default function ContactUs() {
     <>
       <TopBar />
 
-      <Box sx={{ pt: 12, pb: 5, bgcolor: 'background.default' }}>
-        {/* Header Section */}
-        {/* <Box sx={{ textAlign: 'center', py: 5, px: 2, bgcolor: 'primary.main', color: 'white' }}>
-          <Typography variant="h4" fontWeight="bold">
-            Get in Touch with Us
+      <Box sx={{ pt: 7, pb: 5, bgcolor: 'background.default' }}>
+        <Box sx={{ 
+          textAlign: 'center', 
+          py: 6, 
+          px: 2, 
+          bgcolor: 'primary.main', 
+          color: 'white',
+          mb: 6,
+          borderRadius: { xs: 0, md: '0 0 20px 20px' }
+        }}>
+          <Typography variant="h3" fontWeight="bold" sx={{ mb: 2 }}>
+            Get in Touch
           </Typography>
-          <Typography variant="subtitle1" sx={{ mt: 2 }}>
-            We are here to assist you with your inquiries and provide support.
+          <Typography variant="h6" sx={{ maxWidth: '600px', mx: 'auto', opacity: 0.9 }}>
+            We're here to help and answer any questions you might have
           </Typography>
-        </Box> */}
+        </Box>
 
-        {/* Main Content Section */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            gap: 4,
-            px: 2,
-            py: 5,
-            maxWidth: '1200px',
-            mx: 'auto',
-          }}
-        >
-          {/* Contact Information */}
-          <Paper
-            elevation={3}
-            sx={{
-              flex: 1,
-              p: 3,
-              textAlign: 'left',
-            }}
-          >
-            <Typography variant="h5" fontWeight="bold" gutterBottom>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          gap: 4,
+          px: { xs: 2, md: 4 },
+          maxWidth: '1200px',
+          mx: 'auto',
+        }}>
+          <Paper elevation={3} sx={{
+            flex: 1,
+            p: 4,
+            textAlign: 'left',
+            borderRadius: 2,
+            bgcolor: 'background.paper',
+            '& .MuiTypography-root': { color: 'text.primary' }
+          }}>
+            <Typography variant="h5" fontWeight="bold" gutterBottom color="primary">
               Contact Information
             </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
               Feel free to reach out to us during our office hours.
             </Typography>
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Office Address:
-              </Typography>
-              <Typography>123, Innovation Hub, Tech City, Country - 56789</Typography>
-            </Box>
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Opening Hours:
-              </Typography>
-              <Typography>Monday - Friday: 9:00 AM - 6:00 PM</Typography>
-              <Typography>Saturday: 10:00 AM - 4:00 PM</Typography>
-            </Box>
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Phone:
-              </Typography>
-              <Typography>+1 234-567-890</Typography>
-            </Box>
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="subtitle1" fontWeight="bold">
-                Email:
-              </Typography>
-              <Typography>contact@company.com</Typography>
+            
+            <Box sx={{ 
+              '& > div': { 
+                mb: 3,
+                p: 2,
+                borderRadius: 1,
+                '&:hover': { bgcolor: 'action.hover' }
+              }
+            }}>
+              <Box>
+                <Typography variant="subtitle1" fontWeight="bold" color="primary">
+                  Office Address
+                </Typography>
+                <Typography sx={{ mt: 1 }}>123, Innovation Hub, Tech City, Country - 56789</Typography>
+              </Box>
+
+              <Box>
+                <Typography variant="subtitle1" fontWeight="bold" color="primary">
+                  Opening Hours
+                </Typography>
+                <Typography sx={{ mt: 1 }}>Monday - Friday: 9:00 AM - 6:00 PM</Typography>
+                <Typography>Saturday: 10:00 AM - 4:00 PM</Typography>
+              </Box>
+
+              <Box>
+                <Typography variant="subtitle1" fontWeight="bold" color="primary">
+                  Contact Details
+                </Typography>
+                <Typography sx={{ mt: 1 }}>Phone: +1 234-567-890</Typography>
+                <Typography>Email: contact@company.com</Typography>
+              </Box>
             </Box>
           </Paper>
 
-          {/* Contact Form */}
-          <Paper
-            elevation={3}
-            sx={{
-              flex: 1,
-              p: 3,
-              textAlign: 'left',
-            }}
-          >
-            <Typography variant="h5" fontWeight="bold" gutterBottom>
+          <Paper elevation={3} sx={{
+            flex: 1,
+            p: 4,
+            textAlign: 'left',
+            borderRadius: 2,
+            bgcolor: 'background.paper'
+          }}>
+            <Typography variant="h5" fontWeight="bold" gutterBottom color="primary">
               Send Us a Message
             </Typography>
-            <Box component="form" noValidate autoComplete="off" sx={{ mt: 2 }}>
+            <Box component="form" noValidate autoComplete="off" sx={{ mt: 3 }}>
               <TextField
                 fullWidth
                 label="Full Name"
                 variant="outlined"
                 margin="normal"
                 required
+                sx={{ mb: 2 }}
               />
               <TextField
                 fullWidth
@@ -99,6 +107,7 @@ export default function ContactUs() {
                 margin="normal"
                 type="email"
                 required
+                sx={{ mb: 2 }}
               />
               <TextField
                 fullWidth
@@ -108,7 +117,9 @@ export default function ContactUs() {
                 select
                 SelectProps={{ native: true }}
                 required
+                sx={{ mb: 2 }}
               >
+                <option value="">Select your type</option>
                 <option value="organization">Organization</option>
                 <option value="student">Student</option>
               </TextField>
@@ -120,20 +131,28 @@ export default function ContactUs() {
                 multiline
                 rows={4}
                 required
+                sx={{ mb: 2 }}
               />
               <FormControlLabel
                 control={<Checkbox color="primary" />}
                 label="Request a Callback"
-                sx={{ mt: 2 }}
+                sx={{ mb: 2 }}
               />
               <Button
                 fullWidth
                 variant="contained"
                 color="primary"
                 size="large"
-                sx={{ mt: 3 }}
+                sx={{ 
+                  mt: 2,
+                  py: 1.5,
+                  fontSize: '1.1rem',
+                  fontWeight: 'bold',
+                  textTransform: 'none',
+                  borderRadius: 2
+                }}
               >
-                Submit
+                Send Message
               </Button>
             </Box>
           </Paper>

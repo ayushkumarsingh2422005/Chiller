@@ -18,6 +18,7 @@ import {
   Badge,
   Menu,
   MenuItem,
+  CircularProgress,
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -54,14 +55,7 @@ const drawerWidth = 240;
 
 function UserDashboard(props) {
   const navigate = useNavigate();
-  const { fetchUserData, isUserAvailable } = useContext(UserContext);
-  useEffect(() => {
-    fetchUserData();
-    // if(!isUserAvailable){
-    //   localStorage.removeItem("token");
-    //   navigate("/user/auth");
-    // }
-  }, []);
+  const { userData, isUserAvailable, loading, fetchUserData } = useContext(UserContext);
   const { window } = props;
 
   // State to Track Current Screen
@@ -78,6 +72,41 @@ function UserDashboard(props) {
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const handleProfileMenuOpen = (event) => setProfileAnchorEl(event.currentTarget);
   const handleProfileMenuClose = () => setProfileAnchorEl(null);
+
+  // Check authentication on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/user/auth');
+        return;
+      }
+
+      try {
+        await fetchUserData();
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        localStorage.removeItem('token');
+        navigate('/user/auth');
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  // Redirect if not authenticated
+  if (!isUserAvailable) {
+    return null;
+  }
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
@@ -122,6 +151,12 @@ function UserDashboard(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
+  // Update the profile menu to use the logout function
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/user/auth');
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -140,7 +175,7 @@ function UserDashboard(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-            {NAVIGATION.find((item) => item.screen === currentScreen)?.text || "Dashboard"}
+            {userData?.name || 'Dashboard'}
           </Typography>
           {/* Notifications Icon */}
           <IconButton color="inherit" onClick={handlePopoverOpen}>
@@ -188,9 +223,9 @@ function UserDashboard(props) {
           horizontal: "right",
         }}
       >
-        <MenuItem onClick={() => alert("View Profile")}>View Profile</MenuItem>
-        <MenuItem onClick={() => alert("Edit Profile")}>Edit Profile</MenuItem>
-        <MenuItem onClick={() => alert("Logout")}>Logout</MenuItem>
+        <MenuItem onClick={() => setCurrentScreen("account")}>View Profile</MenuItem>
+        <MenuItem onClick={() => setCurrentScreen("usersetting")}>Settings</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
 
       {/* Sidebar Drawer */}

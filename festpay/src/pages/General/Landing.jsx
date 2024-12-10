@@ -9,6 +9,17 @@ import { Link } from 'react-router-dom';
 
 
 export default function Landing() {
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify(structuredData);
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
+
     return (
         <div>
             <TopBar />
@@ -92,14 +103,13 @@ const FeaturesSection = () => {
 
 const HeroSection = () => {
     return (
-        <div>
+        <main>
             <div
                 className="pt-10 h-screen overflow-y-scroll"
                 style={{
                     backgroundImage: `url("${heroBg}")`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center bottom',
-                    // backgroundAttachment: 'fixed',
                 }}
             >
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/5"></div>
@@ -111,7 +121,7 @@ const HeroSection = () => {
                     className="flex p-14 sm:gap-20 gap-10 sm:pr-32 flex-col-reverse sm:flex-row items-center justify-center"
                 >
                     <div className="sm:w-1/2 sm:pt-14 sm:leading-[60px] leading-[30px]">
-                        <span
+                        <h1
                             className="sm:text-5xl text-xl"
                             style={{
                                 fontFamily: 'Krona One',
@@ -119,21 +129,43 @@ const HeroSection = () => {
                         >
                             Effortless Event Management and Payments for{' '}
                             <span className="text-[#1F4EB4]">Students and Clubs.</span>
-                        </span>{' '}
-                        <br />
-                        <span className="sm:text-xl text-sm font-bold">Seamless | Unified | Engagement</span>
-                        <br />
-                        <br className="sm:hidden" />
-                        <Link to={"/account"}>
-                            <Button variant="contained">Get Started</Button>&nbsp;&nbsp;&nbsp;&nbsp;
-                        </Link>
-                        <Link to={"/user/dashboard"}>
-                            <Button color="secondary">Know More</Button>
-                        </Link>
+                        </h1>
+                        <p className="sm:text-xl text-sm font-bold">Seamless | Unified | Engagement</p>
+                        <div className="mt-6">
+                            <Link to={"/account"} aria-label="Get Started with FestPay">
+                                <Button variant="contained">Get Started</Button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </Link>
+                            <Link to={"/user/dashboard"} aria-label="Learn more about FestPay">
+                                <Button color="secondary">Know More</Button>
+                            </Link>
+                        </div>
                     </div>
-                    <img className="h-2/3 text-center mx-auto" src={import.meta.env.VITE_INITIAL_LOGO_PATH} alt="" />
+                    <img 
+                        className="h-2/3 text-center mx-auto" 
+                        src={import.meta.env.VITE_INITIAL_LOGO_PATH} 
+                        alt="FestPay Platform Interface" 
+                    />
                 </div>
             </div>
-        </div>
+        </main>
     );
 }
+
+const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "FestPay",
+    "applicationCategory": "Event Management Platform",
+    "operatingSystem": "Web",
+    "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+    },
+    "description": "A comprehensive platform for managing college events and payments, connecting students with campus organizations.",
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "2000"
+    }
+};

@@ -8,4 +8,11 @@ export default defineConfig({
   build: {
     assetsInlineLimit: 0, // Disable inlining of assets
   },
+  server: {
+    port: 3000, // Optional: Set the port for the development server
+    open: true, // Optional: Open the browser automatically
+    // Ensure the server falls back to index.html for SPA routes
+    hmr: true, 
+    historyApiFallback: true,
+  },
 })

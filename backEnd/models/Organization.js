@@ -70,7 +70,16 @@ const organizationSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Event'
         }
-    ]
+    ],
+    socialMedia: {
+        instagram: { type: String },
+        facebook: { type: String },
+        twitter: { type: String },
+        linkedin: { type: String },
+        youtube: { type: String },
+        website: { type: String },
+        whatsapp: { type: String }
+    }
 }, {
     timestamps: true
 });

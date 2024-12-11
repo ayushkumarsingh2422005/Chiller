@@ -48,7 +48,7 @@ const eventSchema = new mongoose.Schema({
     ],
     maxAttendees: {
         type: Number, // Maximum number of attendees allowed
-        required: true
+        default: -1
     },
     // Registration Details
     registrationRequired: {
@@ -112,7 +112,7 @@ const eventSchema = new mongoose.Schema({
         type: Number, // Rating scale (1-5 or 1-10)
         min: 1,
         max: 5,
-        default: 0 // You can default to 0 and update after feedback is collected
+        default: 1 // You can default to 0 and update after feedback is collected
     },
 
 }, {

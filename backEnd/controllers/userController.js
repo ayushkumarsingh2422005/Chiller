@@ -1,6 +1,8 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import { validationResult } from 'express-validator';
+import fs from 'fs/promises';
+import path from 'path';
 
 // Update Profile Function
 // export const updateProfile = async (req, res) => {
@@ -119,3 +121,75 @@ export const updateProgramBranch = async (req, res) => {
     res.status(500).json({ message: "Failed to update program and branch.", error: error.message });
   }
 }
+
+export const updateUser = async (req, res) => {
+  try {
+    // response
+    //   name: 'Ayush Kumar',
+    // phone: '8299797515',
+    // gender: 'Male',
+    // college: 'National Institute of technology Jamshedput',
+    // program: 'UG',
+    // branch: 'CSE',
+    // registrationNumber: '2023UGCS086'
+    const { name, phone, gender, college, program, branch, registrationNumber } = req.body;
+    req.user.name = name;
+    req.user.phone = phone;
+    req.user.gender = gender;
+    req.user.college = college;
+    req.user.program = program;
+    req.user.branch = branch;
+    req.user.registrationNumber = registrationNumber;
+    await req.user.save();
+    res.status(200).json({ message: "User updated successfully.", user: req.user });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ message: "Failed to update user.", error: error.message });
+  }
+}
+
+export const updateProfilePicture = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ 
+                success: false, 
+                message: "No image file provided" 
+            });
+        }
+
+        // Get the old profile picture path
+        const oldProfilePicture = req.user.profilePicture;
+
+        // Update user's profile picture path in database
+        // Store the path relative to public directory using forward slashes
+        const relativePath = `uploads/profile/${req.file.filename}`;
+        req.user.profilePicture = relativePath;
+        await req.user.save();
+
+        // If there was an old profile picture, delete it
+        if (oldProfilePicture) {
+            const oldPath = `public/${oldProfilePicture}`;
+            try {
+                await fs.access(oldPath); // Check if file exists
+                await fs.unlink(oldPath); // Delete the file
+            } catch (error) {
+                // File doesn't exist or other error, we can ignore
+                console.log('Error deleting old profile picture:', error);
+            }
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Profile picture updated successfully",
+            user: req.user
+        });
+
+    } catch (error) {
+        console.error("Error updating profile picture:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to update profile picture",
+            error: error.message
+        });
+    }
+};

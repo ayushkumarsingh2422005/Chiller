@@ -1,22 +1,24 @@
 import express from 'express';
-import { getProfile } from '../controllers/organizationController.js';
+import { getProfile, updateProfilePicture, updateOrganization, getAllOrganizations, getAllOrganizationDetails } from '../controllers/organizationController.js';
 import { authenticate } from '../middleware/authMiddleware.js';
-// import {  } from '../controllers/organizationController.js';
-import { updateDescription, updateBank, updatePhone } from '../controllers/organizationController.js';
+import dynamicMulter from '../middleware/multer.js';
 
 const router = express.Router();
 
-// router.put('/profile', updateProfile);
 router.get('/data', authenticate, getProfile);
 
-
 // updation routes
-router.put('/update-description', authenticate, updateDescription);
-router.put('/update-bank', authenticate, updateBank);
-router.put('/update-phone', authenticate, updatePhone);
-// router.put('/update-college', authenticate, updateCollege);
-// router.put('/update-registration-number', authenticate, updateRegistrationNumber);
-// router.put('/update-program-branch', authenticate, updateProgramBranch);
+// router.put('/update-description', authenticate, updateDescription);
+// router.put('/update-bank', authenticate, updateBank);
+// router.put('/update-phone', authenticate, updatePhone);
+router.put('/update-image', 
+    authenticate, 
+    dynamicMulter("uploads/organization").single("profilePicture"),
+    updateProfilePicture
+);
+router.put('/update', authenticate, updateOrganization);
 
+router.get('/all', getAllOrganizations);
+router.get('/details/:id', getAllOrganizationDetails);
 
 export default router;

@@ -15,6 +15,7 @@ import notificationRoutes from "./routes/notificationRoutes.js";
 import paymentRoute from "./routes/paymentRoute.js";
 import organizationRoute from "./routes/organizationRoute.js";
 import eventRoute from "./routes/eventRoute.js";
+import collegeRoutes from './routes/collegeRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -33,6 +34,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Set view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
@@ -40,6 +45,15 @@ app.use("/api/organization", organizationRoute);
 app.use("/api/notification", notificationRoutes);
 app.use("/api/payment", paymentRoute);
 app.use("/api/event", eventRoute);
+app.use('/api/colleges', collegeRoutes);
+
+// Serve college management UI
+app.get('/admin/colleges', (req, res) => {
+  console.log(process.env.ADMIN_PASSWORD)
+    res.render('collegeManagement', { 
+        adminPassword: process.env.ADMIN_PASSWORD 
+    });
+});
 
 // Test route
 app.get("/", (req, res) => {

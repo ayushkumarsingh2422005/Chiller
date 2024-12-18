@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { 
   Box, 
   Typography, 
@@ -9,6 +9,8 @@ import {
   IconButton,
   Select,
   MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import { 
   Phone, 
@@ -39,12 +41,29 @@ export default function OrganizationAccount() {
   const [editMode, setEditMode] = useState(false);
   const [editedData, setEditedData] = useState({});
   const [socialMediaErrors, setSocialMediaErrors] = useState({});
+  const [collegeType, setCollegeType] = useState('');
+  const [colleges, setColleges] = useState([]);
+  const [selectedCollege, setSelectedCollege] = useState(null);
+
+  useEffect(() => {
+    if (collegeType) {
+      fetch(`${import.meta.env.VITE_SERVER_URL}/colleges/all?type=${collegeType}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            setColleges(data.colleges);
+          }
+        })
+        .catch(err => console.error('Error fetching colleges:', err));
+    }
+  }, [collegeType]);
 
   const handleEditClick = () => {
     setEditedData({
       name: organizationData?.name || '',
       phone: organizationData?.phone || '',
       description: organizationData?.description || '',
+      college: organizationData?.college || '',
       bank: {
         name: organizationData?.bank?.name || '',
         accountNumber: organizationData?.bank?.accountNumber || '',
@@ -62,6 +81,15 @@ export default function OrganizationAccount() {
         whatsapp: organizationData?.socialMedia?.whatsapp || ''
       }
     });
+
+    if (organizationData?.college) {
+      const college = colleges.find(c => c._id === organizationData.college);
+      if (college) {
+        setCollegeType(college.type);
+        setSelectedCollege(college);
+      }
+    }
+    
     setEditMode(true);
   };
 
@@ -351,6 +379,60 @@ export default function OrganizationAccount() {
           <Mail sx={{ color: "#4caf50", mr: 2 }} />
           <Typography sx={{ minWidth: 150, fontWeight: 'medium' }}>Email:</Typography>
           <Typography>{organizationData.email}</Typography>
+        </Box>
+
+        <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+          <Business sx={{ color: "#4caf50", mr: 2 }} />
+          <Typography sx={{ minWidth: 150, fontWeight: 'medium' }}>College:</Typography>
+          {editMode ? (
+            <Box sx={{ display: 'flex', gap: 2, flex: 1 }}>
+              <FormControl sx={{ minWidth: 200 }}>
+                <InputLabel>College Type</InputLabel>
+                <Select
+                  value={collegeType}
+                  onChange={(e) => {
+                    setCollegeType(e.target.value);
+                    setSelectedCollege(null);
+                  }}
+                  size="small"
+                >
+                  <MenuItem value="IIT">IIT</MenuItem>
+                  <MenuItem value="NIT">NIT</MenuItem>
+                  <MenuItem value="IIIT">IIIT</MenuItem>
+                  <MenuItem value="GFTI">GFTI</MenuItem>
+                  <MenuItem value="OTHER">OTHER</MenuItem>
+                </Select>
+              </FormControl>
+              
+              <FormControl sx={{ minWidth: 300 }}>
+                <InputLabel>Select College</InputLabel>
+                <Select
+                  value={selectedCollege?._id || ''}
+                  onChange={(e) => {
+                    const college = colleges.find(c => c._id === e.target.value);
+                    setSelectedCollege(college);
+                    setEditedData({
+                      ...editedData,
+                      college: e.target.value
+                    });
+                  }}
+                  size="small"
+                  disabled={!collegeType}
+                >
+                  {colleges.map(college => (
+                    <MenuItem key={college._id} value={college._id}>
+                      {college.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+          ) : (
+            <Typography>
+              {organizationData.college ? organizationData?.college 
+                : 'Not selected'}
+            </Typography>
+          )}
         </Box>
 
         <Divider sx={{ my: 3 }} />

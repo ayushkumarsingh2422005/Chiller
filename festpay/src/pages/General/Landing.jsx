@@ -135,8 +135,8 @@ const HeroSection = () => {
                             <Link to={"/account"} aria-label="Get Started with FestPay">
                                 <Button variant="contained">Get Started</Button>&nbsp;&nbsp;&nbsp;&nbsp;
                             </Link>
-                            <Link to={"/user/dashboard"} aria-label="Learn more about FestPay">
-                                <Button color="secondary">Know More</Button>
+                            <Link to={"/clubs"} aria-label="Learn more about FestPay" className='mt-0 sm:mt-4'>
+                                <Button color="secondary">Explore Events</Button>
                             </Link>
                         </div>
                     </div>

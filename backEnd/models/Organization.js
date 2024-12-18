@@ -79,6 +79,10 @@ const organizationSchema = new mongoose.Schema({
         youtube: { type: String },
         website: { type: String },
         whatsapp: { type: String }
+    },
+    college: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'College'
     }
 }, {
     timestamps: true

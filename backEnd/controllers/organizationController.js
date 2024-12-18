@@ -1,15 +1,30 @@
+import College from '../models/College.js';
 import Organization from '../models/Organization.js';
 import fs from 'fs/promises';
 
-export const getProfile = (req, res) => {
+export const getProfile = async (req, res) => {
     try {
-        console.log(req.organization);
-        res.json(req.organization);
+        let organization = await Organization.findById(req.organization._id).lean(); // Convert to plain JS object
+        if (!organization) {
+            return res.status(404).json({ message: "Organization not found" });
+        }
+
+        const college = await College.findById(organization.college).lean();
+        if (!college) {
+            return res.status(404).json({ message: "College not found" });
+        }
+
+        // Modify the `college` field in the organization object
+        organization.college = college.name;
+
+        console.log(organization); // Debug to verify the modifications
+        res.json(organization);   // Send the modified data as a response
     } catch (error) {
         console.error(error.message);
-        res.status(500).send('Server error');
+        res.status(500).send("Server error");
     }
-}
+};
+
 
 export const updateOrganization = async (req, res) => {
     try {
@@ -19,7 +34,8 @@ export const updateOrganization = async (req, res) => {
             phone, 
             description, 
             bank,
-            socialMedia  // Add this
+            socialMedia,
+            college  // Add this
         } = req.body;
 
         // Update basic fields
@@ -27,6 +43,7 @@ export const updateOrganization = async (req, res) => {
         if (email) req.organization.email = email;
         if (phone) req.organization.phone = phone;
         if (description) req.organization.description = description;
+        if (college) req.organization.college = college;
 
         // Update bank details if provided
         if (bank) {
@@ -51,6 +68,8 @@ export const updateOrganization = async (req, res) => {
                 whatsapp: socialMedia.whatsapp || req.organization.socialMedia?.whatsapp
             };
         }
+
+        console.log(req.organization);
 
         await req.organization.save();
 

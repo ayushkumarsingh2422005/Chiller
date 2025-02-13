@@ -16,6 +16,7 @@ import paymentRoute from "./routes/paymentRoute.js";
 import organizationRoute from "./routes/organizationRoute.js";
 import eventRoute from "./routes/eventRoute.js";
 import collegeRoutes from './routes/collegeRoutes.js';
+import earlyaccessRoute from './routes/earlyaccessRoute.js';
 
 dotenv.config();
 connectDB();
@@ -46,6 +47,7 @@ app.use("/api/notification", notificationRoutes);
 app.use("/api/payment", paymentRoute);
 app.use("/api/event", eventRoute);
 app.use('/api/colleges', collegeRoutes);
+app.use('/api/earlyaccess', earlyaccessRoute);
 
 // Serve college management UI
 app.get('/admin/colleges', (req, res) => {

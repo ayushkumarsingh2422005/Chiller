@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Landing, PrivacyPolicy, TandC, UserAuthPage, AboutUs, Page404, UserDashboard, UserProfile, BookMark, Checkout, EventSearch, OrginizationDashboard, OrginizationProfile, ShowEvent, AllEvent, FAQ, ReturnPolicy, EventDetail, MakeAccount, ContactUs, Dashboard, OrgAuthPage, Clubs, ClubDetails, EventDetails, EarlyAccess, NitJsrClub } from './pages';
+import { Landing, PrivacyPolicy, TandC, UserAuthPage, AboutUs, Page404, UserDashboard, UserProfile, BookMark, Checkout, EventSearch, OrginizationDashboard, OrginizationProfile, ShowEvent, AllEvent, FAQ, ReturnPolicy, EventDetail, MakeAccount, ContactUs, Dashboard, OrgAuthPage, Clubs, ClubDetails, EventDetails, EarlyAccess, NitJsrClub, Features, PaymentHistory, PromoteEvent, ComingSoon, HostEvent, TicketingSolution } from './pages';
 import './app.css'
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthGuard } from './components/AuthGuard';
@@ -23,11 +23,17 @@ function App() {
         <Route path="account" element={<MakeAccount />} />
         <Route path="event" element={<EventDetail />} />
         <Route path="contact-us" element={<ContactUs />} />
+        <Route path="promote-event" element={<PromoteEvent />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="clubs" element={<Clubs />} />
         <Route path="clubs/:id" element={<ClubDetails />} />
         <Route path="nit-jsr-club" element={<NitJsrClub />} />
         <Route path="early-access" element={<EarlyAccess />} />
+        <Route path="features" element={<Features />} />
+        <Route path="payment-history" element={<PaymentHistory />} />
+        <Route path="coming-soon" element={<ComingSoon />} />
+        <Route path="host-event" element={<HostEvent />} />
+        <Route path="ticketing-solution" element={<TicketingSolution />} />
       </Route>
       <Route path='/user'>
         <Route path="auth" element={<AuthGuard><UserAuthPage /></AuthGuard>} />

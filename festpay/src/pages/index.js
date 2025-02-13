@@ -35,6 +35,13 @@ import ClubDetails from "./General/ClubDetails"
 import EventDetails from "./Orginization/Event/EventDetails"
 import EarlyAccess from "./General/EarlyAccess"
 import NitJsrClub from "./General/NitJsrClub"
+import Features from "./General/Features"
+import PaymentHistory from "./General/PaymentHistory"
+import PromoteEvent from "./General/PromoteEvent"
+import ComingSoon from "./General/ComingSoon"
+import HostEvent from "./General/HostEvent"
+// import PaymentLink from "./General/PaymentLink"
+import TicketingSolution from "./General/TicketingSolution"
 export {
     Landing,
     UserAuthPage,
@@ -72,5 +79,11 @@ export {
     ClubDetails,
     EventDetails,
     EarlyAccess,
-    NitJsrClub
+    NitJsrClub,
+    Features,
+    PaymentHistory,
+    PromoteEvent,
+    ComingSoon,
+    HostEvent,
+    TicketingSolution
 }

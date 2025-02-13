@@ -50,8 +50,8 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li><Link to={'/'} className="hover:text-blue-300 transition-colors duration-300">Home</Link></li>
               <li><Link to={'/about-us'} className="hover:text-blue-300 transition-colors duration-300">About Us</Link></li>
-              <li><Link className="hover:text-blue-300 transition-colors duration-300">Features</Link></li>
-              <li><Link href="/contact-us" className="hover:text-blue-300 transition-colors duration-300">Contact</Link></li>
+              <li><Link to={'/features'} className="hover:text-blue-300 transition-colors duration-300">Features</Link></li>
+              <li><Link to={'/contact-us'} className="hover:text-blue-300 transition-colors duration-300">Contact</Link></li>
               <li><Link to={'/faq'} className="hover:text-blue-300 transition-colors duration-300">FAQ</Link></li>
             </ul>
           </div>
@@ -71,20 +71,21 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-blue-300">Student</h3>
             <ul className="space-y-3 text-sm">
-              <li><Link to={'/register'} className="hover:text-blue-300 transition-colors duration-300">Register</Link></li>
-              <li><Link to={'/login'} className="hover:text-blue-300 transition-colors duration-300">Log in</Link></li>
-              <li><Link className="hover:text-blue-300 transition-colors duration-300">Explore Clubs</Link></li>
-              <li><Link className="hover:text-blue-300 transition-colors duration-300">Payment History</Link></li>
-              <li><Link className="hover:text-blue-300 transition-colors duration-300">Wallet</Link></li>
+              <li><Link to={'/coming-soon'} className="hover:text-blue-300 transition-colors duration-300">Register</Link></li>
+              <li><Link to={'/coming-soon'} className="hover:text-blue-300 transition-colors duration-300">Log in</Link></li>
+              <li><Link to={'/nit-jsr-club'} className="hover:text-blue-300 transition-colors duration-300">Explore Clubs</Link></li>
+              <li><Link to={'/payment-history'} className="hover:text-blue-300 transition-colors duration-300">Payment History</Link></li>
+              {/* <li><Link className="hover:text-blue-300 transition-colors duration-300">Wallet</Link></li> */}
+              <li><Link to={'/coming-soon'} className="hover:text-blue-300 transition-colors duration-300">Referral</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-4 text-blue-300">Organization</h3>
             <ul className="space-y-3 text-sm">
-              <li><Link className="hover:text-blue-300 transition-colors duration-300">Promote Event</Link></li>
-              <li><Link className="hover:text-blue-300 transition-colors duration-300">Host an Event</Link></li>
+              <li><Link to={'/promote-event'} className="hover:text-blue-300 transition-colors duration-300">Promote Event</Link></li>
+              <li><Link to={'/host-event'} className="hover:text-blue-300 transition-colors duration-300">Host an Event</Link></li>
               <li><Link to={'/dashboard'} className="hover:text-blue-300 transition-colors duration-300">DashBoard</Link></li>
-              <li><Link className="hover:text-blue-300 transition-colors duration-300">Ticketing Solution</Link></li>
+              <li><Link to={'/ticketing-solution'} className="hover:text-blue-300 transition-colors duration-300">Ticketing Solution</Link></li>
             </ul>
           </div>
         </div>

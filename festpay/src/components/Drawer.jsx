@@ -17,6 +17,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import GroupsIcon from '@mui/icons-material/Groups';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import HomeIcon from '@mui/icons-material/Home';
 
 export default function Drawer({ openState, toggleDrawer }) {
   const list = (
@@ -28,6 +29,61 @@ export default function Drawer({ openState, toggleDrawer }) {
     >
       <List>
         {/* Manually specify the path for each menu item */}
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/">
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+        </ListItem>
+
+
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/about-us">
+            <ListItemIcon>
+              <InfoIcon />
+            </ListItemIcon>
+            <ListItemText primary="About Us" />
+          </ListItemButton>
+        </ListItem>
+
+        {/* <ListItem disablePadding>
+          <ListItemButton component={Link} to="/settings">
+          <ListItemIcon>
+          <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+          </ListItemButton>
+          </ListItem> */}
+
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/profile-update">
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Profile Update" />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/nit-jsr-club">
+            <ListItemIcon>
+              <GroupsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Clubs" />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/faq">
+            <ListItemIcon>
+              <HelpOutlineIcon />
+            </ListItemIcon>
+            <ListItemText primary="FaQ" />
+          </ListItemButton>
+        </ListItem>
+
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/privacy-policy">
             <ListItemIcon>
@@ -46,61 +102,16 @@ export default function Drawer({ openState, toggleDrawer }) {
           </ListItemButton>
         </ListItem>
 
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/about-us">
-            <ListItemIcon>
-              <InfoIcon />
-            </ListItemIcon>
-            <ListItemText primary="About Us" />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/settings">
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/profile-update">
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Profile Update" />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/clubs">
-            <ListItemIcon>
-              <GroupsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Clubs" />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/faq">
-            <ListItemIcon>
-              <HelpOutlineIcon />
-            </ListItemIcon>
-            <ListItemText primary="FaQ" />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
+        {/* <ListItem disablePadding>
           <ListItemButton component={Link} to="/bookmarks">
             <ListItemIcon>
               <BookmarkIcon />
             </ListItemIcon>
             <ListItemText primary="Bookmarks" />
           </ListItemButton>
-        </ListItem>
-        
-        <ListItem disablePadding onClick={()=>{
+        </ListItem> */}
+
+        {/* <ListItem disablePadding onClick={()=>{
           localStorage.removeItem("token");
           
         }}>
@@ -110,7 +121,7 @@ export default function Drawer({ openState, toggleDrawer }) {
             </ListItemIcon>
             <ListItemText primary="Logout" />
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
       </List>
       <Divider />
     </Box>

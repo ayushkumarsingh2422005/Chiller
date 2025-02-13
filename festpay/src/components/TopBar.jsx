@@ -48,8 +48,8 @@ export default function TopBar() {
 
                     {/* Conditionally render Login or Avatar */}
                     
-                    <Link to='/account'>
-                        <Button color="inherit">Start</Button>
+                    <Link to='/early-access'>
+                        <Button color="inherit">Early Access</Button>
                     </Link>
                 </Toolbar>
             </AppBar>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Landing, PrivacyPolicy, TandC, UserAuthPage, AboutUs, Page404, UserDashboard, UserProfile, BookMark, Checkout, EventSearch, OrginizationDashboard, OrginizationProfile, ShowEvent, AllEvent, FAQ, ReturnPolicy, EventDetail, MakeAccount, ContactUs, Dashboard, OrgAuthPage, Clubs, ClubDetails, EventDetails } from './pages';
+import { Landing, PrivacyPolicy, TandC, UserAuthPage, AboutUs, Page404, UserDashboard, UserProfile, BookMark, Checkout, EventSearch, OrginizationDashboard, OrginizationProfile, ShowEvent, AllEvent, FAQ, ReturnPolicy, EventDetail, MakeAccount, ContactUs, Dashboard, OrgAuthPage, Clubs, ClubDetails, EventDetails, EarlyAccess, NitJsrClub } from './pages';
 import './app.css'
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AuthGuard } from './components/AuthGuard';
@@ -26,6 +26,8 @@ function App() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="clubs" element={<Clubs />} />
         <Route path="clubs/:id" element={<ClubDetails />} />
+        <Route path="nit-jsr-club" element={<NitJsrClub />} />
+        <Route path="early-access" element={<EarlyAccess />} />
       </Route>
       <Route path='/user'>
         <Route path="auth" element={<AuthGuard><UserAuthPage /></AuthGuard>} />

@@ -132,11 +132,18 @@ const HeroSection = () => {
                         </h1>
                         <p className="sm:text-xl text-sm font-bold">Seamless | Unified | Engagement</p>
                         <div className="mt-6">
-                            <Link to={"/account"} aria-label="Get Started with FestPay">
+                            {/* <Link to={"/account"} aria-label="Get Started with FestPay">
                                 <Button variant="contained">Get Started</Button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </Link> */}
+                            <Link to={"/early-access"} aria-label="Get Started with FestPay">
+                                <Button variant="contained">Early Access</Button>&nbsp;&nbsp;&nbsp;&nbsp;
                             </Link>
-                            <Link to={"/clubs"} aria-label="Learn more about FestPay" className='mt-0 sm:mt-4'>
+
+                            {/* <Link to={"/clubs"} aria-label="Learn more about FestPay" className='mt-0 sm:mt-4'>
                                 <Button color="secondary">Explore Events</Button>
+                            </Link> */}
+                            <Link to={"/nit-jsr-club"} aria-label="Learn more about FestPay" className='mt-0 sm:mt-4'>
+                                <Button color="secondary">Explore Clubs</Button>
                             </Link>
                         </div>
                     </div>

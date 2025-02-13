@@ -1,5 +1,5 @@
 {
-  "name": "FestPay",
+  "name": "festpay",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -32,6 +32,7 @@
     "react-razorpay": "^3.0.1",
     "react-router-dom": "^6.28.0",
     "react-slick": "^0.30.2",
+    "recharts": "^2.15.0",
     "sitemap": "^8.0.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.13"

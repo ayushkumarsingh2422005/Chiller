@@ -73,7 +73,7 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li><Link to={'/register'} className="hover:text-blue-300 transition-colors duration-300">Register</Link></li>
               <li><Link to={'/login'} className="hover:text-blue-300 transition-colors duration-300">Log in</Link></li>
-              <li><Link className="hover:text-blue-300 transition-colors duration-300">Explore Event</Link></li>
+              <li><Link className="hover:text-blue-300 transition-colors duration-300">Explore Clubs</Link></li>
               <li><Link className="hover:text-blue-300 transition-colors duration-300">Payment History</Link></li>
               <li><Link className="hover:text-blue-300 transition-colors duration-300">Wallet</Link></li>
             </ul>
@@ -94,19 +94,23 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-blue-300">Contact Us</h3>
             <div className="space-y-2">
-              <div className="flex items-center space-x-2 text-sm">
-                <span className="font-semibold">Phone:</span>
-                <a href="tel:+918299797516" className="hover:text-blue-300 transition-colors duration-300">+91 829 979 7516</a>
+              <div className="items-center space-x-2 text-sm">
+                <span className="font-semibold">Phone:</span><br />
+                <a href="tel:+918299797516" className="hover:text-blue-300 transition-colors duration-300">+91 829 979 7516</a><br />
+                <a href="tel:+918102568482" className="hover:text-blue-300 transition-colors duration-300">+91 810 256 8482</a>
               </div>
+
               <div className="flex items-center space-x-2 text-sm">
                 <span className="font-semibold">Email:</span>
-                <a href="mailto:ayush2422005@gmail.com" className="hover:text-blue-300 transition-colors duration-300">ayush2422005@gmail.com</a>
+                <a href="mailto:hello@festpay.in" className="hover:text-blue-300 transition-colors duration-300">hello@festpay.in</a>
               </div>
               <div className="text-sm mt-4">
                 <span className="font-semibold">Address:</span><br />
-                {import.meta.env.VITE_AGENCY_NAME},<br />123 Main St, City,<br />State, 12345
+
+                {import.meta.env.VITE_AGENCY_NAME},<br />NIT Jamshedpur,<br />Jharkhand, 831014
               </div>
             </div>
+
             <img src={currentlocation} alt="Location Map" className="w-full rounded-lg shadow-lg hover:opacity-90 transition-opacity" />
           </div>
         </div>

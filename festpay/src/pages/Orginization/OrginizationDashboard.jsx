@@ -40,7 +40,8 @@ import OrganizationTransaction from "./OrganizationTransaction"; // Fixed the sp
 import PaymentLink from "./PaymentLink";
 import Transaction from "./Transaction";
 import OrganizationAccount from "./OrganizationAccount";
-import EventDetails from './EventDetails';
+// import EventDetails from './EventDetails';
+import EventDetails from './Event/EventDetails';
 
 // Updated Navigation with new icons
 const NAVIGATION = [

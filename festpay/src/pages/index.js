@@ -31,14 +31,19 @@ import MakeAccount from "./General/MakeAccount"
 import Dashboard from "./General/Dashboard"
 import Clubs from "./General/Clubs"
 import ClubDetails from "./General/ClubDetails"
-import EventDetails from "./Orginization/EventDetails"
+// import EventDetails from "./Orginization/EventDetails"
+import EventDetails from "./Orginization/Event/EventDetails"
+import EarlyAccess from "./General/EarlyAccess"
+import NitJsrClub from "./General/NitJsrClub"
 export {
     Landing,
     UserAuthPage,
+
     TandC,
     PrivacyPolicy,
     FAQ,
     OrginizationDashboard,
+
     UserDashboard,
     OrginizationProfile,
     UserProfile,
@@ -65,5 +70,7 @@ export {
     Dashboard,
     Clubs,
     ClubDetails,
-    EventDetails
+    EventDetails,
+    EarlyAccess,
+    NitJsrClub
 }

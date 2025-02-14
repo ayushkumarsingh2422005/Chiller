@@ -18,6 +18,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { Link } from 'react-router-dom';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AnalyticsIcon from '@mui/icons-material/Analytics';
+import faq from "../../assets/images/faq.png"
 
 export default function HostEvent() {
   return (
@@ -262,118 +263,62 @@ function Faq() {
     ];
 
     return (
-        <Box sx={{ py: 8, px: { xs: 3, md: 8 }, bgcolor: 'background.paper' }}>
-            <Container maxWidth="lg">
-                <Grid container spacing={4} alignItems="center">
-                    {/* FAQ Section */}
-                    <Grid item xs={12} md={7}>
-                        <Typography
-                            variant="h3"
-                            sx={{
-                                fontWeight: "bold",
-                                mb: 3,
-                                color: "primary.main",
-                                fontSize: { xs: "2rem", md: "2.5rem" },
-                            }}
+        <div className="flex flex-col lg:flex-row gap-8 p-4 max-w-[1200px] mx-auto mb-36">
+            {/* Accordion Section */}
+            <div className="lg:w-1/2">
+                <Typography
+                    variant="h2"
+                    sx={{
+                        fontWeight: "bold",
+                        mb: 2,
+                        color: "primary.main",
+                        fontSize: { xs: "2rem", md: "2.5rem" },
+                    }}
+                >
+                    Frequently asked questions
+                </Typography>
+                <Typography
+                    variant="h5"
+                    sx={{
+                        mb: 3,
+                        maxWidth: "800px",
+                        color: "text.secondary",
+                        fontSize: { xs: "1rem", md: "1.25rem" },
+                        borderLeft: "4px solid",
+                        borderLeftColor: "primary.main",
+                        pl: 2,
+                    }}
+                >
+                    Learn how to effectively host and manage your events
+                </Typography>
+                <br />
+                {accordionData.map((item, index) => (
+                    <Accordion key={index} sx={{ mb: 2, borderRadius: "8px", boxShadow: 0 }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls={`panel${index}-content`}
+                            id={`panel${index}-header`}
+                            sx={{ bgcolor: "background.paper" }}
                         >
-                            Event Hosting Guide
-                        </Typography>
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                mb: 4,
-                                color: "text.secondary",
-                                borderLeft: "4px solid",
-                                borderLeftColor: "primary.main",
-                                pl: 2,
-                            }}
-                        >
-                            Learn how to effectively host and manage your events
-                        </Typography>
+                            <Typography variant="h6" sx={{ fontWeight: "bold" }}>{item.title}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails sx={{ bgcolor: "background.default" }}>
+                            <Typography>{item.content}</Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                ))}
+            </div>
 
-                        {accordionData.map((item, index) => (
-                            <Accordion 
-                                key={index} 
-                                sx={{ 
-                                    mb: 2, 
-                                    borderRadius: "8px", 
-                                    '&:before': { display: 'none' },
-                                    boxShadow: 'none',
-                                    border: '1px solid',
-                                    borderColor: 'divider',
-                                    '&:hover': {
-                                        borderColor: 'primary.main',
-                                    }
-                                }}
-                            >
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon color="primary" />}
-                                    sx={{ 
-                                        bgcolor: "background.paper",
-                                        '&:hover': {
-                                            bgcolor: 'primary.light',
-                                        }
-                                    }}
-                                >
-                                    <Typography 
-                                        variant="subtitle1" 
-                                        sx={{ 
-                                            fontWeight: "bold",
-                                            color: 'text.primary'
-                                        }}
-                                    >
-                                        {item.title}
-                                    </Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Typography 
-                                        variant="body1"
-                                        sx={{ 
-                                            color: 'text.secondary',
-                                            lineHeight: 1.7
-                                        }}
-                                    >
-                                        {item.content}
-                                    </Typography>
-                                </AccordionDetails>
-                            </Accordion>
-                        ))}
-                    </Grid>
-
-                    {/* Image Section */}
-                    <Grid item xs={12} md={5}>
-                        <Box
-                            sx={{
-                                p: 3,
-                                bgcolor: 'background.default',
-                                borderRadius: 4,
-                                boxShadow: 3,
-                                textAlign: 'center'
-                            }}
-                        >
-                            <img
-                                src={dasboardhero}
-                                alt="Event Hosting Guide"
-                                style={{
-                                    maxWidth: '100%',
-                                    height: 'auto',
-                                    borderRadius: '12px'
-                                }}
-                            />
-                            <Typography
-                                variant="h6"
-                                sx={{
-                                    mt: 3,
-                                    color: 'text.primary',
-                                    fontWeight: 'medium'
-                                }}
-                            >
-                                Streamline your event management with our tools
-                            </Typography>
-                        </Box>
-                    </Grid>
-                </Grid>
-            </Container>
-        </Box>
+            {/* Image/Preview Section */}
+            <div className="lg:w-1/2 flex justify-center">
+                <div className="w-full max-w-md rounded-lg bg-white flex items-center justify-center p-2">
+                    <img
+                        src={faq}
+                        alt="Placeholder"
+                        className="rounded-lg mb-4 w-full"
+                    />
+                </div>
+            </div>
+        </div>
     );
 }

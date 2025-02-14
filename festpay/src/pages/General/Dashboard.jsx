@@ -7,6 +7,11 @@ import dasboardhero from "../../assets/images/dasboardhero.png"
 import Slider from "react-slick";
 import bg3 from "../../assets/images/bg3.webp"
 import { deepOrange, deepPurple, blue } from '@mui/material/colors';
+import faq from "../../assets/images/faq.png"
+import d1 from '../../assets/images/d1.jpg'
+import d3 from '../../assets/images/d3.jpg'
+import d4 from '../../assets/images/d4.jpg'
+
 
 export default function Dashboard() {
     return (
@@ -15,7 +20,7 @@ export default function Dashboard() {
             <Hero />
             {/* <Statistics /> */}
             <Features />
-            <Testimonials />
+            {/* <Testimonials /> */}
             <Faq />
             <Footer />
         </>
@@ -72,6 +77,7 @@ function Hero() {
                         for Your Events.
                     </Typography>
                     <Button
+                        href={'/coming-soon'}
                         variant="contained"
                         color="primary"
                         sx={{
@@ -187,30 +193,20 @@ function Statistics() {
 function Features() {
     const features = [
         {
-            title: "Real-time Analytics Dashboard",
-            description: "Track event performance, ticket sales, and engagement metrics with comprehensive analytics and visual reports.",
-            image: dasboardhero,
+            title: "Easy Event Creation",
+            description: "Create and customize events in minutes with our intuitive interface, flexible scheduling options, and automated setup tools.",
+            image: d1,
         },
         {
-            title: "Seamless Payment Integration",
-            description: "Accept payments securely with multiple payment options, automatic reconciliation, and instant refund capabilities.",
-            image: dasboardhero,
+            title: "Smart Transaction Handling",
+            description: "Process transactions seamlessly with real-time tracking, automated reconciliation, and secure payment gateway integration.",
+            image: d3,
         },
         {
-            title: "Smart Event Management",
-            description: "Create, manage, and promote events with automated reminders, attendee management, and QR code check-ins.",
-            image: dasboardhero,
+            title: "Payment Link Generation",
+            description: "Generate secure payment links instantly for your events, making it easy to collect payments and track transactions.",
+            image: d4,
         },
-        {
-            title: "Club Management Tools",
-            description: "Manage club members, roles, and permissions. Track club finances and generate expense reports easily.",
-            image: dasboardhero,
-        },
-        {
-            title: "Communication Hub",
-            description: "Built-in messaging system for event updates, announcements, and direct communication with attendees.",
-            image: dasboardhero,
-        }
     ];
 
 
@@ -242,10 +238,10 @@ function Features() {
                                 flexDirection: { xs: "column", md: "row" },
                                 alignItems: "center",
                                 p: 2,
-                                boxShadow: 0,
-                                bgcolor: "#deedfc",
+                                // boxShadow: 0,
+                                // bgcolor: "#deedfc",
                                 borderRadius: "50px",
-                                // boxShadow : "0"
+                                // border: "solid 1px lightgray"
                             }}
                         >
                             <Typography
@@ -270,11 +266,13 @@ function Features() {
                                 src={feature.image}
                                 alt={feature.title}
                                 sx={{
-                                    width: { xs: "400px", md: "400px" },
+                                    width: { xs: "400px", md: "800px" },
                                     borderRadius: "8px",
                                     objectFit: "contain",
                                     mb: { xs: 2, md: 0 },
-                                    mx: "auto"
+                                    mx: "auto",
+                                    border: "solid 1px lightgray",
+                                    padding: 2
                                 }}
                             />
                         </Card>
@@ -433,44 +431,28 @@ function Testimonials() {
 function Faq() {
     const accordionData = [
         {
-            title: "How does this platform help me promote my event effectively?",
-            content: "Our platform centralizes your event details, enhances visibility through targeted audiences, and provides tools for seamless sharing and engagement, ensuring maximum reach."
+            title: "How can I access my dashboard?",
+            content: "You can access your dashboard by logging into your account and clicking on the 'Dashboard' option in the navigation menu. The dashboard provides a centralized view of all your event management tools and analytics."
         },
         {
-            title: "Can I edit event details after publishing?",
-            content: "Yes, you can update or modify your event details at any time through your dashboard, ensuring accurate and up-to-date information for attendees."
+            title: "What features are available on the dashboard?",
+            content: "Our dashboard offers comprehensive features including event creation and management, real-time analytics, participant tracking, payment processing, communication tools, and customizable reporting options all in one place."
         },
         {
-            title: "Is there any cost involved in promoting events?",
-            content: "Our basic features are completely free. Additional premium options for enhanced visibility and analytics are available for a small fee."
+            title: "How do I create a new event from the dashboard?",
+            content: "To create a new event, simply click the 'Create Event' button on your dashboard. Follow the step-by-step wizard to input event details, set up ticketing, and customize your event page with all necessary information."
         },
         {
-            title: "How do I track the success of my event?",
-            content: "Our platform offers real-time analytics to monitor views, RSVPs, and participant interactions, helping you measure and optimize your event's performance."
+            title: "Can I manage multiple events simultaneously from the dashboard?",
+            content: "Yes, the dashboard allows you to manage multiple events simultaneously. You can easily switch between different events, track their performance, and handle operations for all your events from a single interface."
         },
         {
-            title: "What types of events can I promote here?",
-            content: "You can promote all types of college events, including academic, cultural, sports, and club activities, ensuring every event gets the attention it deserves."
+            title: "How can I view my event's performance metrics?",
+            content: "The dashboard provides detailed analytics and performance metrics for each event. You can view ticket sales, attendance rates, revenue generated, and other key metrics through intuitive charts and graphs in the analytics section."
         },
         {
-            title: "How long does it take to set up my event on the platform?",
-            content: "Setting up your event is quick and easy, typically taking just a few minutes to complete all necessary details and publish your event."
-        },
-        {
-            title: "Can I share my event on social media directly from the platform?",
-            content: "Yes, we provide integrated tools to share your event across various social media platforms with a single click."
-        },
-        {
-            title: "How do I engage with participants once my event is live?",
-            content: "You can interact with participants via comments, updates, and direct messaging through the platform to ensure clear communication and engagement."
-        },
-        {
-            title: "Do I receive any data or insights after the event?",
-            content: "Yes, you'll receive detailed analytics, including event views, participant interactions, and feedback, to help assess the success of your event."
-        },
-        {
-            title: "What if I need support while using the platform?",
-            content: "Our support team is available through chat or email to assist with any issues or questions you may have."
+            title: "How do I export reports from my dashboard?",
+            content: "You can export various reports by navigating to the 'Reports' section in your dashboard. Select the type of report you need (sales, attendance, etc.), choose your preferred format (PDF, Excel, etc.), and click 'Export' to download your data."
         }
     ];
 
@@ -501,7 +483,7 @@ function Faq() {
                         pl: 2,
                     }}
                 >
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita doloribus soluta esse aut libero quisquam quos quo eaque enim nostrum!
+                    Get answers to common questions about using our dashboard to manage your events effectively.
                 </Typography>
                 <br />
                 {accordionData.map((item, index) => (
@@ -523,9 +505,9 @@ function Faq() {
 
             {/* Image/Preview Section */}
             <div className="lg:w-1/2 flex justify-center">
-                <div className="w-full max-w-md border rounded-lg bg-white shadow-md flex items-center justify-center p-2">
+                <div className="w-full max-w-md rounded-lg bg-white  flex items-center justify-center p-2">
                     <img
-                        src="https://via.placeholder.com/300x200"
+                        src={faq}
                         alt="Placeholder"
                         className="rounded-lg mb-4 w-full"
                     />

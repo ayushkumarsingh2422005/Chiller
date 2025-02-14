@@ -13,6 +13,7 @@ import LinkIcon from '@mui/icons-material/Link';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { Link } from 'react-router-dom';
+import faq from "../../assets/images/faq.png"
 
 export default function TicketingSolution() {
   return (
@@ -285,51 +286,78 @@ function Benefits() {
 }
 
 function Faq() {
-  const faqs = [
-    {
-      title: "How does the payment process work?",
-      content: "Our platform generates a secure payment link for your event. Attendees can click the link, complete their registration, and pay using various payment methods. Once payment is confirmed, they automatically receive their digital ticket."
-    },
-    {
-      title: "What payment methods are supported?",
-      content: "We support multiple payment methods including credit/debit cards, UPI, and net banking to ensure convenient payment options for all attendees."
-    },
-    {
-      title: "How are tickets delivered to attendees?",
-      content: "After successful payment, attendees receive their tickets instantly via email. Each ticket includes a unique QR code for easy check-in at the event."
-    }
-  ];
+    const accordionData = [
+        {
+            title: "How does the payment process work?",
+            content: "Our platform generates a secure payment link for your event. Attendees can click the link, complete their registration, and pay using various payment methods. Once payment is confirmed, they automatically receive their digital ticket."
+        },
+        {
+            title: "What payment methods are supported?", 
+            content: "We support multiple payment methods including credit/debit cards, UPI, and net banking to ensure convenient payment options for all attendees."
+        },
+        {
+            title: "How are tickets delivered to attendees?",
+            content: "After successful payment, attendees receive their tickets instantly via email. Each ticket includes a unique QR code for easy check-in at the event."
+        }
+    ];
 
-  return (
-    <Box sx={{ py: 8, px: { xs: 3, md: 8 }, bgcolor: 'background.default' }}>
-      <Container maxWidth="lg">
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: "bold",
-            mb: 6,
-            textAlign: "center",
-            color: "primary.main",
-            fontSize: { xs: "2rem", md: "2.5rem" }
-          }}
-        >
-          Frequently Asked Questions
-        </Typography>
-        {faqs.map((faq, index) => (
-          <Accordion key={index} sx={{ mb: 2, borderRadius: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h6" fontWeight="bold">
-                {faq.title}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography color="text.secondary">
-                {faq.content}
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </Container>
-    </Box>
-  );
+    return (
+        <div className="flex flex-col lg:flex-row gap-8 p-4 max-w-[1200px] mx-auto mb-36">
+            {/* Accordion Section */}
+            <div className="lg:w-1/2">
+                <Typography
+                    variant="h2"
+                    sx={{
+                        fontWeight: "bold",
+                        mb: 2,
+                        color: "primary.main",
+                        fontSize: { xs: "2rem", md: "2.5rem" },
+                    }}
+                >
+                    Frequently asked questions
+                </Typography>
+                <Typography
+                    variant="h5"
+                    sx={{
+                        mb: 3,
+                        maxWidth: "800px",
+                        color: "text.secondary",
+                        fontSize: { xs: "1rem", md: "1.25rem" },
+                        borderLeft: "4px solid",
+                        borderLeftColor: "primary.main",
+                        pl: 2,
+                    }}
+                >
+                    Get answers to common questions about using our ticketing solution.
+                </Typography>
+                <br />
+                {accordionData.map((item, index) => (
+                    <Accordion key={index} sx={{ mb: 2, borderRadius: "8px", boxShadow: 0 }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls={`panel${index}-content`}
+                            id={`panel${index}-header`}
+                            sx={{ bgcolor: "background.paper" }}
+                        >
+                            <Typography variant="h6" sx={{ fontWeight: "bold" }}>{item.title}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails sx={{ bgcolor: "background.default" }}>
+                            <Typography>{item.content}</Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                ))}
+            </div>
+
+            {/* Image/Preview Section */}
+            <div className="lg:w-1/2 flex justify-center">
+                <div className="w-full max-w-md rounded-lg bg-white flex items-center justify-center p-2">
+                    <img
+                        src={faq}
+                        alt="Placeholder"
+                        className="rounded-lg mb-4 w-full"
+                    />
+                </div>
+            </div>
+        </div>
+    );
 }

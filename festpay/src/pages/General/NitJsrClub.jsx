@@ -243,16 +243,16 @@ export default function NitJsrClub() {
   return (
     <>
       <TopBar />
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           mt: '64px',
           minHeight: '100vh',
           background: 'linear-gradient(180deg, #EAF1FF 0%, rgba(234, 241, 255, 0.4) 100%)',
         }}
       >
         {/* Hero Section */}
-        <Box sx={{ 
-          textAlign: 'center', 
+        <Box sx={{
+          textAlign: 'center',
           py: { xs: 6, md: 10 },
           px: 4,
           position: 'relative'
@@ -284,8 +284,8 @@ export default function NitJsrClub() {
           </Typography>
 
           {/* Clubs Grid */}
-          <Box 
-            sx={{ 
+          <Box
+            sx={{
               display: 'grid',
               gridTemplateColumns: {
                 xs: '1fr',
@@ -317,14 +317,14 @@ export default function NitJsrClub() {
                   }}
                   onClick={() => handleClubClick(club)}
                 >
-                  <CardContent sx={{ 
+                  <CardContent sx={{
                     textAlign: 'center',
                     p: { xs: 3, sm: 4 },
                     background: `linear-gradient(135deg, ${styles.secondary} 0%, white 100%)`,
                   }}>
-                    <Box 
+                    <Box
                       className="club-logo"
-                      sx={{ 
+                      sx={{
                         width: '120px',
                         height: '120px',
                         mx: 'auto',
@@ -348,9 +348,9 @@ export default function NitJsrClub() {
                         }}
                       />
                     </Box>
-                    <Typography 
-                      variant="h5" 
-                      sx={{ 
+                    <Typography
+                      variant="h5"
+                      sx={{
                         fontWeight: 'bold',
                         mb: 2,
                         color: styles.primary
@@ -358,9 +358,9 @@ export default function NitJsrClub() {
                     >
                       {club.name}
                     </Typography>
-                    <Typography 
+                    <Typography
                       color="text.secondary"
-                      sx={{ 
+                      sx={{
                         fontSize: '0.95rem',
                         lineHeight: 1.6
                       }}
@@ -426,24 +426,7 @@ export default function NitJsrClub() {
                       aspectRatio: '16/9',
                     }}
                   />
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      position: 'absolute',
-                      bottom: { xs: '80px', sm: '100px' },
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      color: 'white',
-                      fontWeight: 'bold',
-                      textAlign: 'center',
-                      width: '100%',
-                      textShadow: '0 2px 4px rgba(0,0,0,0.3)',
-                      fontSize: { xs: '1.75rem', sm: '2.5rem' },
-                      px: 2,
-                    }}
-                  >
-                    {selectedClub.name}
-                  </Typography>
+
                   <Box
                     component="img"
                     src={selectedClub.logo}
@@ -463,8 +446,27 @@ export default function NitJsrClub() {
                   />
                 </Box>
 
-                <Box sx={{ 
-                  mt: { xs: 8, sm: 12 },
+                <Typography
+                  variant="h3"
+                  sx={{
+                    bottom: { xs: '80px', sm: '100px' },
+                    // left: '50%',
+                    // transform: 'translateX(-50%)',
+                    color: 'black',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    width: '100%',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                    fontSize: { xs: '1.75rem', sm: '2.5rem' },
+                    px: 2,
+                    mt: 10
+                  }}
+                >
+                  {selectedClub.name}
+                </Typography>
+
+                <Box sx={{
+                  mt: { xs: 3, sm: 3 },
                   px: { xs: 2, sm: 4, md: 6 },
                   pb: { xs: 4, sm: 6 }
                 }}>
@@ -511,9 +513,10 @@ export default function NitJsrClub() {
                     </Grid>
                   </Grid>
 
-                  <Typography 
-                    variant="body1" 
-                    sx={{ 
+
+                  <Typography
+                    variant="body1"
+                    sx={{
                       mb: { xs: 4, sm: 6 },
                       lineHeight: 1.8,
                       color: 'text.secondary',
@@ -526,16 +529,16 @@ export default function NitJsrClub() {
                     {selectedClub.description}
                   </Typography>
 
-                  <Box sx={{ 
-                    bgcolor: 'white', 
+                  <Box sx={{
+                    bgcolor: 'white',
                     p: { xs: 3, sm: 4 },
                     borderRadius: 3,
                     boxShadow: '0 2px 12px rgba(0, 0, 0, 0.05)',
                     mb: { xs: 4, sm: 6 }
                   }}>
-                    <Typography 
-                      variant="h6" 
-                      sx={{ 
+                    <Typography
+                      variant="h6"
+                      sx={{
                         mb: 3,
                         color: styles.primary,
                         fontWeight: 'bold',
@@ -568,15 +571,15 @@ export default function NitJsrClub() {
                     </Grid>
                   </Box>
 
-                  <Box sx={{ 
-                    bgcolor: 'white', 
+                  <Box sx={{
+                    bgcolor: 'white',
                     p: { xs: 3, sm: 4 },
                     borderRadius: 3,
                     boxShadow: '0 2px 12px rgba(0, 0, 0, 0.05)'
                   }}>
-                    <Typography 
-                      variant="h6" 
-                      sx={{ 
+                    <Typography
+                      variant="h6"
+                      sx={{
                         mb: { xs: 3, sm: 4 },
                         color: styles.primary,
                         fontWeight: 'bold',
@@ -603,11 +606,11 @@ export default function NitJsrClub() {
                             <Typography variant="subtitle2" sx={{ color: 'text.secondary', mb: 1 }}>
                               Email
                             </Typography>
-                            <Typography 
-                              variant="h6" 
-                              component="a" 
+                            <Typography
+                              variant="h6"
+                              component="a"
                               href={`mailto:${selectedClub.contacts.email}`}
-                              sx={{ 
+                              sx={{
                                 color: styles.primary,
                                 textDecoration: 'none',
                                 '&:hover': { color: '#1a439b' }
@@ -624,11 +627,11 @@ export default function NitJsrClub() {
                             <Typography variant="subtitle2" sx={{ color: 'text.secondary', mb: 1 }}>
                               Phone
                             </Typography>
-                            <Typography 
-                              variant="h6" 
-                              component="a" 
+                            <Typography
+                              variant="h6"
+                              component="a"
                               href={`tel:${selectedClub.contacts.phone}`}
-                              sx={{ 
+                              sx={{
                                 color: styles.primary,
                                 textDecoration: 'none',
                                 '&:hover': { color: '#1a439b' }
@@ -642,18 +645,18 @@ export default function NitJsrClub() {
                               Social Media
                             </Typography>
                             <Stack direction="row" spacing={3}>
-                              <Typography 
-                                component="a" 
+                              <Typography
+                                component="a"
                                 href={`https://instagram.com/${selectedClub.contacts.socialMedia.instagram.replace('@', '')}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                sx={{ 
+                                sx={{
                                   color: '#E1306C',
                                   textDecoration: 'none',
                                   display: 'flex',
                                   alignItems: 'center',
                                   gap: 1,
-                                  '&:hover': { 
+                                  '&:hover': {
                                     transform: 'translateY(-2px)',
                                   },
                                   transition: 'transform 0.2s ease'
@@ -661,18 +664,18 @@ export default function NitJsrClub() {
                               >
                                 <FaInstagram size={24} />
                               </Typography>
-                              <Typography 
-                                component="a" 
+                              <Typography
+                                component="a"
                                 href={`https://linkedin.com/company/${selectedClub.contacts.socialMedia.linkedin}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                sx={{ 
+                                sx={{
                                   color: '#0077B5',
                                   textDecoration: 'none',
                                   display: 'flex',
                                   alignItems: 'center',
                                   gap: 1,
-                                  '&:hover': { 
+                                  '&:hover': {
                                     transform: 'translateY(-2px)',
                                   },
                                   transition: 'transform 0.2s ease'

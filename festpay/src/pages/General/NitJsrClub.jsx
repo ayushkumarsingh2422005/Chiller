@@ -21,7 +21,7 @@ const clubsData = [
     name: 'Innoreva',
     icon: FaCode,
     shortDesc: 'IOT and Robotics Club',
-    banner: '/clubs/pconbanner.png',
+    banner: '/clubs/innorevabanner.png',
     logo: '/clubs/Innorevalogo.png',
     established: '2019',
     teamSize: '50+',
@@ -50,12 +50,12 @@ The team believes that the future of technology lies in the intersection of vari
     name: 'NSS',
     icon: FaRobot,
     shortDesc: 'National Service Scheme',
-    banner: '/clubs/roboticsbanner.png',
+    banner: '/clubs/nssbanner.png',
     logo: '/clubs/nsslogo.png',
     established: '1969',
     teamSize: '200+',
 
-    description: 'NSS is Central Sector Scheme of Government of India, Ministry of Youth Affairs & Sports Sole aim of the NSS is to provide hands on experience to young students in delivering community service. Primary objective of developing the personality and character of the student youth through voluntary community service. ‘Education through Service’ is the purpose of the NSS. The ideological orientation of the NSS is inspired by the ideals of Mahatma Gandhi.',
+    description: 'NSS is Central Sector Scheme of Government of India, Ministry of Youth Affairs & Sports Sole aim of the NSS is to provide hands on experience to young students in delivering community service. Primary objective of developing the personality and character of the student youth through voluntary community service. \'Education through Service\' is the purpose of the NSS. The ideological orientation of the NSS is inspired by the ideals of Mahatma Gandhi.',
     achievements: [
       'Raksha Bandhan with Security Guard',
       'Swachhta Pakhwada Event',
@@ -284,9 +284,21 @@ export default function NitJsrClub() {
           </Typography>
 
           {/* Clubs Grid */}
-          <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} sx={{ maxWidth: '1200px', mx: 'auto' }}>
+          <Box 
+            sx={{ 
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)'
+              },
+              gap: { xs: 2, sm: 3, md: 4 },
+              maxWidth: '1200px',
+              mx: 'auto'
+            }}
+          >
             {clubsData.map((club) => (
-              <Grid item xs={12} sm={6} md={4} key={club.id}>
+              <Box key={club.id}>
                 <Card
                   sx={{
                     height: '100%',
@@ -357,9 +369,9 @@ export default function NitJsrClub() {
                     </Typography>
                   </CardContent>
                 </Card>
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         </Box>
 
         {/* Club Details Dialog */}

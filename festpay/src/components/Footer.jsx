@@ -74,7 +74,7 @@ export default function Footer() {
               <li><Link to={'/coming-soon'} className="hover:text-blue-300 transition-colors duration-300">Register</Link></li>
               <li><Link to={'/coming-soon'} className="hover:text-blue-300 transition-colors duration-300">Log in</Link></li>
               <li><Link to={'/nit-jsr-club'} className="hover:text-blue-300 transition-colors duration-300">Explore Clubs</Link></li>
-              <li><Link to={'/payment-history'} className="hover:text-blue-300 transition-colors duration-300">Payment History</Link></li>
+              <li><Link to={'/coming-soon'} className="hover:text-blue-300 transition-colors duration-300">Payment History</Link></li>
               {/* <li><Link className="hover:text-blue-300 transition-colors duration-300">Wallet</Link></li> */}
               <li><Link to={'/coming-soon'} className="hover:text-blue-300 transition-colors duration-300">Referral</Link></li>
             </ul>
